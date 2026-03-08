@@ -1,0 +1,1350 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>اسواق تبارك | متجر السوبر ماركت</title>
+    <style>
+      :root {
+        --red-900: #7f1010;
+        --red-700: #b51f1f;
+        --red-600: #cb2323;
+        --red-100: #ffe3e3;
+        --bg: #fff7f7;
+        --text: #321010;
+        --green: #138a4a;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Tahoma", "Segoe UI", sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(circle at 10% 10%, #ffd9d9 0, transparent 35%),
+          radial-gradient(circle at 85% 5%, #ffc5c5 0, transparent 28%),
+          var(--bg);
+      }
+
+      .wrap {
+        width: min(1150px, 94%);
+        margin: 18px auto 40px;
+      }
+
+      .hero {
+        background: linear-gradient(145deg, #df3030, #9f1b1b);
+        color: #fff;
+        border-radius: 20px;
+        padding: clamp(16px, 3.4vw, 24px);
+        box-shadow: 0 14px 30px rgba(175, 40, 40, 0.28);
+      }
+
+      .hero-top {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 12px;
+      }
+
+      .logo-container {
+        flex-shrink: 0;
+      }
+
+      .market-logo {
+        width: 80px;
+        height: 80px;
+        border-radius: 16px;
+        object-fit: cover;
+        border: 3px solid rgba(255, 255, 255, 0.4);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        background: #fff;
+      }
+
+      .hero-info {
+        flex: 1;
+      }
+
+      .hero-brand {
+        font-size: 14px;
+        opacity: 0.85;
+        letter-spacing: 1px;
+      }
+
+      .hero h1 {
+        margin: 4px 0 0;
+        font-size: clamp(24px, 5vw, 42px);
+      }
+
+      .contact {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 14px;
+      }
+
+      .contact a {
+        display: inline-block;
+        background: rgba(255, 255, 255, 0.16);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 999px;
+        padding: 8px 14px;
+        font-size: 14px;
+        white-space: nowrap;
+        color: #fff;
+        text-decoration: none;
+      }
+
+      .contact a:hover {
+        background: rgba(255, 255, 255, 0.28);
+      }
+
+      .banner {
+        margin-top: 14px;
+        border: 2px dashed #ef9999;
+        border-radius: 14px;
+        background: #fff0f0;
+        padding: 14px;
+        text-align: center;
+        color: #8f1a1a;
+        font-weight: 700;
+      }
+
+      .banner-link {
+        display: block;
+        text-decoration: none;
+        transition: transform 0.2s ease;
+      }
+
+      .banner-link:hover {
+        transform: translateY(-2px);
+      }
+
+      .banner small {
+        display: block;
+        margin-top: 6px;
+        color: #a33131;
+      }
+
+      .floating-tools {
+        position: sticky;
+        top: 10px;
+        z-index: 20;
+        margin-top: 14px;
+        border: 1px solid #efb6b6;
+        border-radius: 14px;
+        background: rgba(255, 245, 245, 0.95);
+        backdrop-filter: blur(5px);
+        box-shadow: 0 8px 20px rgba(190, 51, 51, 0.15);
+        padding: 10px;
+      }
+
+      .search-row {
+        margin-bottom: 10px;
+      }
+
+      .search-input {
+        width: 100%;
+        border: 1px solid #e7a7a7;
+        border-radius: 10px;
+        padding: 10px 12px;
+        font-size: 14px;
+        background: #fff;
+      }
+
+      .categories-row {
+        display: flex;
+        gap: 8px;
+        overflow-x: auto;
+        padding-bottom: 2px;
+        scrollbar-width: thin;
+      }
+
+      .cat-btn {
+        background: #ffe3e3;
+        color: #8f1a1a;
+        border: 1px solid #efbbbb;
+        border-radius: 999px;
+        padding: 8px 14px;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+
+      .cat-btn.active {
+        background: var(--red-700);
+        color: #fff;
+        border-color: var(--red-700);
+      }
+
+      .head-row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        margin: 22px 0 12px;
+      }
+
+      .offer-countdown {
+        margin-bottom: 14px;
+        border-radius: 12px;
+        border: 1px solid #efb3b3;
+        background: #fff1f1;
+        padding: 10px 12px;
+        font-weight: 700;
+        color: #8f1a1a;
+      }
+
+      .badge {
+        border-radius: 999px;
+        padding: 8px 14px;
+        font-size: 14px;
+        font-weight: 700;
+        background: #f8d2d2;
+        color: #812222;
+      }
+
+      .badge.active {
+        background: #1b9b5a;
+        color: #fff;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+        gap: 14px;
+      }
+
+      .card {
+        background: #fff;
+        border: 1px solid #f3b6b6;
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: 0 8px 20px rgba(220, 67, 67, 0.12);
+      }
+
+      .img {
+        height: 150px;
+        width: 100%;
+        object-fit: cover;
+        display: block;
+        cursor: zoom-in;
+      }
+
+      .p {
+        padding: 12px;
+      }
+
+      .name {
+        display: block;
+        font-weight: 700;
+        margin-bottom: 8px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .old {
+        text-decoration: line-through;
+        color: #b95a5a;
+        font-size: 14px;
+      }
+
+      .new {
+        color: var(--red-700);
+        font-size: 14px;
+        font-weight: 700;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 2px;
+      }
+
+      .new .price-value {
+        font-size: 16px;
+        font-weight: 800;
+      }
+
+      .new .currency {
+        font-size: 11px;
+        font-weight: 700;
+      }
+
+      .muted {
+        font-size: 13px;
+        color: #8f3d3d;
+      }
+
+      .price-box {
+        margin: 6px 0;
+        padding: 8px;
+        background: linear-gradient(135deg, #fff8f8 0%, #ffeeee 100%);
+        border-radius: 8px;
+        border: 1px solid #f3d5d5;
+      }
+
+      .price-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 4px;
+        margin-bottom: 4px;
+      }
+
+      .price-row.small {
+        margin-top: 6px;
+        padding-top: 6px;
+        border-top: 1px dashed #f3d5d5;
+      }
+
+      .price-row .label {
+        font-size: 11px;
+        color: #666;
+        font-weight: 600;
+      }
+
+      .price-row .label.green {
+        color: #138a4a;
+        font-weight: 700;
+      }
+
+      .price-row .label.red {
+        color: #b51f1f;
+        font-weight: 700;
+      }
+
+      .price-row .old-val {
+        font-size: 14px;
+        color: #999;
+        text-decoration: line-through;
+        font-weight: 500;
+      }
+
+      .price-row .new-val {
+        font-size: 16px;
+        font-weight: 800;
+        color: #b51f1f;
+      }
+
+      .price-row .friday-val {
+        font-size: 14px;
+        font-weight: 700;
+        color: #138a4a;
+      }
+
+      .price-row .curr {
+        font-size: 10px;
+        color: #666;
+        margin-right: 2px;
+      }
+
+      .save-badge {
+        text-align: center;
+        background: #e8f5e9;
+        color: #138a4a;
+        font-size: 10px;
+        font-weight: 700;
+        padding: 4px 8px;
+        border-radius: 4px;
+        margin-top: 6px;
+      }
+
+      .status {
+        display: inline-block;
+        border-radius: 999px;
+        padding: 4px 10px;
+        font-size: 12px;
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+
+      .status.out {
+        background: #b71c1c;
+        color: #fff;
+      }
+
+      button {
+        border: 0;
+        border-radius: 10px;
+        cursor: pointer;
+      }
+
+      .btn-add {
+        width: 100%;
+        margin-top: 10px;
+        padding: 10px;
+        color: #fff;
+        background: var(--red-700);
+        font-weight: 700;
+      }
+
+      .btn-add:disabled {
+        background: #ad9e9e;
+        cursor: not-allowed;
+      }
+
+      .cart {
+        margin-top: 24px;
+        background: #fff;
+        border: 1px solid #efb8b8;
+        border-radius: 14px;
+        padding: 14px;
+      }
+
+      .cart-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        border: 1px solid #f6d1d1;
+        border-radius: 10px;
+        padding: 10px;
+        margin-bottom: 9px;
+      }
+
+      .qty {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .qty button {
+        width: 28px;
+        height: 28px;
+        font-weight: 800;
+      }
+
+      .minus {
+        background: #ffe2e2;
+        color: #7f1f1f;
+      }
+
+      .plus {
+        background: #b51f1f;
+        color: #fff;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 12px;
+      }
+
+      .actions button {
+        flex: 1 1 220px;
+      }
+
+      .totals {
+        margin-top: 10px;
+        border-top: 1px dashed #efb8b8;
+        padding-top: 10px;
+      }
+
+      .totals div {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 6px;
+        font-weight: 700;
+      }
+
+      .totals .final {
+        color: var(--red-700);
+        font-size: 18px;
+      }
+
+      .wa {
+        background: var(--green);
+        color: #fff;
+        padding: 10px 14px;
+        font-weight: 700;
+      }
+
+      .copy {
+        border: 1px solid var(--green);
+        background: #fff;
+        color: var(--green);
+        padding: 10px 14px;
+        font-weight: 700;
+      }
+
+      footer {
+        margin-top: 14px;
+        background: var(--red-900);
+        color: #ffdede;
+        border-radius: 14px;
+        padding: 14px;
+        text-align: center;
+      }
+
+      footer a {
+        color: #fff;
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      footer a:hover {
+        text-decoration: underline;
+      }
+
+      .modal {
+        position: fixed;
+        inset: 0;
+        background: rgba(45, 8, 8, 0.65);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 30;
+        padding: 16px;
+      }
+
+      .modal.open {
+        display: flex;
+      }
+
+      .modal-box {
+        width: min(520px, 100%);
+        max-height: min(88vh, 720px);
+        overflow-y: auto;
+        background: #fff;
+        border-radius: 14px;
+        border: 1px solid #f1b4b4;
+        padding: 16px;
+      }
+
+      .field {
+        margin-bottom: 10px;
+      }
+
+      .field label {
+        display: block;
+        margin-bottom: 6px;
+        font-size: 14px;
+        font-weight: 700;
+      }
+
+      .field input,
+      .field textarea {
+        width: 100%;
+        border: 1px solid #e5b2b2;
+        border-radius: 10px;
+        padding: 10px;
+        font-family: inherit;
+        font-size: 14px;
+      }
+
+      .field textarea {
+        resize: vertical;
+        min-height: 70px;
+      }
+
+      .modal-actions {
+        display: flex;
+        gap: 8px;
+        justify-content: flex-end;
+        margin-top: 8px;
+      }
+
+      .product-detail-image {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        border-radius: 10px;
+        margin-bottom: 10px;
+      }
+
+      .btn-cancel {
+        background: #f4dddd;
+        color: #7f2020;
+        padding: 10px 14px;
+        font-weight: 700;
+      }
+
+      .floating-cart {
+        position: fixed;
+        bottom: calc(14px + env(safe-area-inset-bottom));
+        right: 18px;
+        width: 58px;
+        height: 58px;
+        border-radius: 50%;
+        background: var(--red-700);
+        color: #fff;
+        box-shadow: 0 12px 24px rgba(181, 31, 31, 0.35);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        z-index: 25;
+      }
+
+      .floating-cart-count {
+        position: absolute;
+        top: -6px;
+        left: -6px;
+        min-width: 24px;
+        height: 24px;
+        border-radius: 999px;
+        background: #fff;
+        color: var(--red-700);
+        border: 2px solid #f9d4d4;
+        font-size: 12px;
+        font-weight: 800;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 6px;
+      }
+
+      @media (max-width: 640px) {
+        .wrap {
+          width: min(1150px, 96%);
+        }
+
+        .hero-top {
+          gap: 12px;
+        }
+
+        .market-logo {
+          width: 60px;
+          height: 60px;
+          border-radius: 12px;
+        }
+
+        .hero-brand {
+          font-size: 11px;
+        }
+
+        .hero h1 {
+          font-size: 20px;
+        }
+
+        .hero p {
+          font-size: 14px;
+          line-height: 1.7;
+        }
+
+        .contact a {
+          width: 100%;
+          text-align: center;
+        }
+
+        .head-row h2 {
+          margin: 0;
+          font-size: 22px;
+        }
+
+        .grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 8px;
+        }
+
+        .img {
+          height: 110px;
+        }
+
+        .p {
+          padding: 8px;
+        }
+
+        .name {
+          font-size: 12px;
+          margin-bottom: 4px;
+        }
+
+        .muted {
+          font-size: 10px;
+        }
+
+        .old {
+          font-size: 10px;
+        }
+
+        .new {
+          font-size: 11px;
+        }
+
+        .new .price-value {
+          font-size: 13px;
+        }
+
+        .new .currency {
+          font-size: 9px;
+        }
+
+        .btn-add {
+          padding: 8px;
+          font-size: 11px;
+          margin-top: 6px;
+        }
+
+        .price-box {
+          padding: 4px;
+          margin: 4px 0;
+        }
+
+        .price-row .label {
+          font-size: 9px;
+          min-width: 28px;
+        }
+
+        .price-row .old-val {
+          font-size: 10px;
+        }
+
+        .price-row .new-val {
+          font-size: 12px;
+        }
+
+        .price-row .friday-val {
+          font-size: 10px;
+        }
+
+        .price-row .curr {
+          font-size: 8px;
+        }
+
+        .cart-item {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .qty {
+          align-self: flex-end;
+        }
+
+        .actions button {
+          flex-basis: 100%;
+          width: 100%;
+        }
+
+        footer {
+          font-size: 14px;
+        }
+
+        .floating-cart {
+          bottom: 14px;
+          right: 14px;
+          width: 54px;
+          height: 54px;
+          font-size: 22px;
+        }
+      }
+
+      @media (min-width: 641px) and (max-width: 1024px) {
+        .wrap {
+          width: min(1150px, 92%);
+        }
+
+        .grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header class="hero">
+        <div class="hero-top">
+          <div class="logo-container">
+            <img id="marketLogo" class="market-logo" src="https://via.placeholder.com/80x80/ffffff/b51f1f?text=LOGO" alt="لوجو اسواق تبارك" />
+          </div>
+          <div class="hero-info">
+            <div class="hero-brand">TABARAK MARKET</div>
+            <h1>اسواق تبارك</h1>
+          </div>
+        </div>
+        <p>متجر سوبر ماركت لعرض السلع مع أسعار قبل الخصم وبعد الخصم. العروض مفعلة فقط يوم الجمعة.</p>
+        <div class="contact">
+          <a href="tel:01030566078" aria-label="اتصال برقم التواصل 01030566078">رقم التواصل: 01030566078</a>
+          <a href="tel:01030566078" aria-label="اتصال برقم الدليفري 01030566078">رقم الدليفري: 01030566078</a>
+        </div>
+      </header>
+
+      <a class="banner-link" href="#productsSection" aria-label="الانتقال الى صفحة المنتجات والعروض">
+        <div class="banner">
+          بنر اعلاني اسفل الهيدر - اضغط هنا للانتقال الى صفحة العروض والمنتجات
+          <small>انتقل مباشرة لعرض كل السلع المتاحة</small>
+        </div>
+      </a>
+
+      <section class="floating-tools" aria-label="شريط الاقسام والبحث">
+        <div class="search-row">
+          <input id="searchInput" class="search-input" type="search" placeholder="ابحث عن منتج مثل: أرز أو جبنة" />
+        </div>
+        <div id="categoriesRow" class="categories-row"></div>
+      </section>
+
+      <section id="productsSection">
+        <div class="head-row">
+          <h2>المنتجات</h2>
+          <span id="fridayBadge" class="badge"></span>
+        </div>
+        <p class="muted" style="font-weight:700; margin: 0 0 10px;">عروض الجمعة 26/02/2026 بمناسبة شهر الخير - كل عام وانتم بخير ورمضان كريم.</p>
+        <div id="offerCountdown" class="offer-countdown"></div>
+        <div id="products" class="grid"></div>
+      </section>
+
+      <section id="cartSection" class="cart">
+        <h2>سلة المشتريات</h2>
+        <div id="cartItems"></div>
+        <div id="cartSummary"></div>
+        <div class="actions">
+          <button id="sendBtn" class="wa">ارسال السلة الى واتساب</button>
+          <button id="copyBtn" class="copy">نسخ نص الطلب</button>
+        </div>
+        <p id="notice" class="muted"></p>
+      </section>
+
+      <a class="banner-link" href="https://wa.me/201030566078" target="_blank" rel="noopener" aria-label="الانتقال الى صفحة التواصل على واتساب">
+        <div class="banner">
+          بنر اعلاني اعلى الفوتر - اضغط للانتقال الى صفحة التواصل على واتساب
+          <small>للاستفسارات السريعة والعروض الخاصة</small>
+        </div>
+      </a>
+
+      <footer>
+        <div>اسواق تبارك - خدمة العملاء: <a href="tel:01030566078">01030566078</a></div>
+        <div>الدليفري: <a href="tel:01030566078">01030566078</a></div>
+      </footer>
+    </div>
+
+    <button id="floatingCartBtn" class="floating-cart" aria-label="الانتقال الى سلة المشتريات">
+      🛒
+      <span id="floatingCartCount" class="floating-cart-count">0</span>
+    </button>
+
+    <div id="checkoutModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle">
+      <div class="modal-box">
+        <h3 id="checkoutTitle">بيانات العميل قبل ارسال الطلب</h3>
+        <p class="muted">يرجى ادخال البيانات التالية وسيتم ارسالها مع تفاصيل السلة.</p>
+        <div class="field">
+          <label for="customerName">اسم العميل</label>
+          <input id="customerName" type="text" placeholder="مثال: احمد محمد" />
+        </div>
+        <div class="field">
+          <label for="customerPhone">رقم التليفون</label>
+          <input id="customerPhone" type="tel" placeholder="مثال: 01000000000" />
+        </div>
+        <div class="field">
+          <label for="customerAddress">العنوان</label>
+          <textarea id="customerAddress" placeholder="اكتب العنوان بالتفصيل"></textarea>
+        </div>
+        <div class="modal-actions">
+          <button id="cancelCheckoutBtn" class="btn-cancel">الغاء</button>
+          <button id="confirmSendBtn" class="wa">تاكيد وارسال واتساب</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="productDetailModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="productDetailTitle">
+      <div class="modal-box">
+        <img id="productDetailImage" class="product-detail-image" src="" alt="" />
+        <h3 id="productDetailTitle">تفاصيل المنتج</h3>
+        <p id="productDetailCategory" class="muted"></p>
+        <p id="productDetailStock" class="muted"></p>
+        <div id="productDetailPrice"></div>
+        <div class="modal-actions">
+          <button id="closeProductDetailBtn" class="btn-cancel">اغلاق</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const WHATSAPP_NUMBER = "201030566078";
+      const DELIVERY_FEE = 15;
+      let isFriday = new Date().getDay() === 5;
+      let selectedCategory = "الكل";
+      let searchTerm = "";
+      const categoryImages = {
+        "قسم البيض": "https://images.unsplash.com/photo-1506976785307-8732e854ad03?auto=format&fit=crop&w=700&q=80",
+        "الأرز والمكرونة": "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=700&q=80",
+        "الزيوت والسمن": "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=700&q=80",
+        "فطارك عندنا": "https://images.unsplash.com/photo-1559598467-f8b76c8155d0?auto=format&fit=crop&w=700&q=80",
+        "المجمدات والأسماك": "https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?auto=format&fit=crop&w=700&q=80",
+        "البقوليات والصوصات والعطارة": "https://images.unsplash.com/photo-1515543904379-3d757afe72e4?auto=format&fit=crop&w=700&q=80",
+        "المشروبات الشتوية": "https://images.unsplash.com/photo-1517701550927-30cf4ba1f4d6?auto=format&fit=crop&w=700&q=80",
+        "المنظفات والمعطرات": "https://images.unsplash.com/photo-1585421514738-01798e348b17?auto=format&fit=crop&w=700&q=80"
+      };
+
+      const productSeed = [
+        // قسم البيض
+        { name: "طبق بيض أبيض وزن 2 كجم", category: "قسم البيض", fridayPrice: 125, price: 135, stock: 30, image: "https://images.unsplash.com/photo-1582722872445-44dc5f7e3c8f?auto=format&fit=crop&w=400&q=80" },
+        { name: "طبق بيض أحمر وزن 2 كجم", category: "قسم البيض", fridayPrice: 135, price: 140, stock: 28, image: "https://images.unsplash.com/photo-1569288052389-dac9b01c9c05?auto=format&fit=crop&w=400&q=80" },
+        // الأرز والمكرونة
+        { name: "كيلو أرز وسط", category: "الأرز والمكرونة", fridayPrice: 22, price: 28, stock: 45, image: "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=400&q=80" },
+        { name: "كيلو أرز عريض", category: "الأرز والمكرونة", fridayPrice: 27, price: 32, stock: 45, image: "https://images.unsplash.com/photo-1536304993881-ff6e9eefa2a6?auto=format&fit=crop&w=400&q=80" },
+        { name: "كيلو أرز بسمتي اقتصادي", category: "الأرز والمكرونة", fridayPrice: 45, price: 50, stock: 38, image: "https://images.unsplash.com/photo-1594756202469-9ff9799b2e4e?auto=format&fit=crop&w=400&q=80" },
+        { name: "كيلو أرز بسمتي فاخر", category: "الأرز والمكرونة", fridayPrice: 60, price: 70, stock: 32, image: "https://images.unsplash.com/photo-1516684732162-798a0062be99?auto=format&fit=crop&w=400&q=80" },
+        { name: "كيلو أرز بسمتي سوبر", category: "الأرز والمكرونة", fridayPrice: 80, price: 90, stock: 30, image: "https://images.unsplash.com/photo-1550399105-c4db5fb85c18?auto=format&fit=crop&w=400&q=80" },
+        { name: "شيكارة أرز 25 كيلو (وسط)", category: "الأرز والمكرونة", fridayPrice: 515, price: 580, stock: 20, image: "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=400&q=80" },
+        { name: "شيكارة أرز 25 كيلو (عريض)", category: "الأرز والمكرونة", fridayPrice: 645, price: 720, stock: 18, image: "https://images.unsplash.com/photo-1536304993881-ff6e9eefa2a6?auto=format&fit=crop&w=400&q=80" },
+        { name: "باكيت أرز الخير والبركة (10 أكياس)", category: "الأرز والمكرونة", fridayPrice: 225, price: 280, stock: 25, image: "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=400&q=80" },
+        { name: "شيكارة أرز الندى (10 كجم وسط)", category: "الأرز والمكرونة", fridayPrice: 215, price: 250, stock: 20, image: "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=400&q=80" },
+        { name: "باكيت أرز الحمامتين (10 كجم)", category: "الأرز والمكرونة", fridayPrice: 255, price: 270, stock: 20, image: "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=400&q=80" },
+        { name: "عرض 2 كيس أرز الخير والبركة", category: "الأرز والمكرونة", fridayPrice: 50, price: 60, stock: 30, image: "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=400&q=80" },
+        { name: "شيكارة أرز زاد 5 كيلو", category: "الأرز والمكرونة", fridayPrice: 165, price: 180, stock: 22, image: "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=400&q=80" },
+        { name: "شيكارة أرز الساعة 5 كيلو", category: "الأرز والمكرونة", fridayPrice: 175, price: 185, stock: 22, image: "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=400&q=80" },
+        { name: "شيكارة أرز الضحى 5 كيلو", category: "الأرز والمكرونة", fridayPrice: 200, price: 220, stock: 22, image: "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=400&q=80" },
+        { name: "شيكارة أرز بسمتي 5 كيلو", category: "الأرز والمكرونة", fridayPrice: 220, price: 300, stock: 18, image: "https://images.unsplash.com/photo-1594756202469-9ff9799b2e4e?auto=format&fit=crop&w=400&q=80" },
+        { name: "شيكارة أرز زي العسل 5 كيلو", category: "الأرز والمكرونة", fridayPrice: 165, price: 180, stock: 22, image: "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=400&q=80" },
+        { name: "مكرونة أنواع", category: "الأرز والمكرونة", fridayPrice: 20, price: 24, stock: 60, image: "https://images.unsplash.com/photo-1551462147-ff29053bfc14?auto=format&fit=crop&w=400&q=80" },
+        { name: "مكرونة اسباكيتي", category: "الأرز والمكرونة", fridayPrice: 23, price: 25, stock: 52, image: "https://images.unsplash.com/photo-1612874742237-6526221588e3?auto=format&fit=crop&w=400&q=80" },
+        { name: "شيكارة مكرونة (أي نوع ما عدا الاسباجتي)", category: "الأرز والمكرونة", fridayPrice: 189, price: 220, stock: 16, image: "https://images.unsplash.com/photo-1551462147-ff29053bfc14?auto=format&fit=crop&w=400&q=80" },
+        { name: "شيكارة مكرونة الاسباجتي", category: "الأرز والمكرونة", fridayPrice: 225, price: 250, stock: 16, image: "https://images.unsplash.com/photo-1612874742237-6526221588e3?auto=format&fit=crop&w=400&q=80" },
+        { name: "عرض 10 كيس مكرونة الملكة (مشكل)", category: "الأرز والمكرونة", fridayPrice: 138, price: 150, stock: 25, image: "https://images.unsplash.com/photo-1551462147-ff29053bfc14?auto=format&fit=crop&w=400&q=80" },
+        // الزيوت والسمن
+        { name: "عرض 2 زيت سهر (700 جرام)", category: "الزيوت والسمن", fridayPrice: 95, price: 110, stock: 30, image: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=400&q=80" },
+        { name: "2 زجاجة زيت سيلا (لتر صافي)", category: "الزيوت والسمن", fridayPrice: 129, price: 150, stock: 26, image: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=400&q=80" },
+        { name: "2 زجاجة زيت فلية او حلوة (لتر صافي)", category: "الزيوت والسمن", fridayPrice: 145, price: 160, stock: 24, image: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=400&q=80" },
+        { name: "زجاجة زيت حلوة او قلية (1 لتر)", category: "الزيوت والسمن", fridayPrice: 73, price: 80, stock: 35, image: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=400&q=80" },
+        { name: "زجاجة زيت الممتاز (1 لتر)", category: "الزيوت والسمن", fridayPrice: 73, price: 80, stock: 35, image: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=400&q=80" },
+        { name: "زجاجة زيت كريستال عباد الشمس (700 جرام)", category: "الزيوت والسمن", fridayPrice: 78, price: 85, stock: 35, image: "https://images.unsplash.com/photo-1620706857370-e1b9770e8bb1?auto=format&fit=crop&w=400&q=80" },
+        { name: "زجاجة زيت سيلا (700 جرام)", category: "الزيوت والسمن", fridayPrice: 89, price: 100, stock: 30, image: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=400&q=80" },
+        { name: "زجاجة زيت كريستال عباد (700 جرام)", category: "الزيوت والسمن", fridayPrice: 78, price: 85, stock: 35, image: "https://images.unsplash.com/photo-1620706857370-e1b9770e8bb1?auto=format&fit=crop&w=400&q=80" },
+        { name: "زجاجة زيت سيلايت (2.5 لتر)", category: "الزيوت والسمن", fridayPrice: 190, price: 200, stock: 20, image: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=400&q=80" },
+        { name: "زجاجة زيت حلوة (3 لتر)", category: "الزيوت والسمن", fridayPrice: 160, price: 170, stock: 20, image: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=400&q=80" },
+        { name: "زجاجة زيت حلوة (5 لتر)", category: "الزيوت والسمن", fridayPrice: 318, price: 330, stock: 18, image: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=400&q=80" },
+        { name: "زجاجة زيت صني (5 لتر)", category: "الزيوت والسمن", fridayPrice: 325, price: 340, stock: 18, image: "https://images.unsplash.com/photo-1620706857370-e1b9770e8bb1?auto=format&fit=crop&w=400&q=80" },
+        { name: "كيلو سمن سايب", category: "الزيوت والسمن", fridayPrice: 105, price: 120, stock: 30, image: "https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?auto=format&fit=crop&w=400&q=80" },
+        { name: "علبة سمنة الساقية", category: "الزيوت والسمن", fridayPrice: 75, price: 85, stock: 30, image: "https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?auto=format&fit=crop&w=400&q=80" },
+        { name: "علبة سمنة قوت القلوب", category: "الزيوت والسمن", fridayPrice: 100, price: 120, stock: 25, image: "https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?auto=format&fit=crop&w=400&q=80" },
+        { name: "سمنة (كريستال/روابي/جنة) 2 كيلو", category: "الزيوت والسمن", fridayPrice: 155, price: 165, stock: 20, image: "https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?auto=format&fit=crop&w=400&q=80" },
+        { name: "سمنة (كريستال/روابي/جنة) 11 كيلو", category: "الزيوت والسمن", fridayPrice: 1080, price: 1150, stock: 10, image: "https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?auto=format&fit=crop&w=400&q=80" },
+        // فطارك عندنا
+        { name: "عرض 2 كيلو سكر (1000 جرام)", category: "فطارك عندنا", fridayPrice: 55, price: 60, stock: 40, image: "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?auto=format&fit=crop&w=400&q=80" },
+        { name: "باكت سكر 10 كجم", category: "فطارك عندنا", fridayPrice: 275, price: 300, stock: 16, image: "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?auto=format&fit=crop&w=400&q=80" },
+        { name: "عرض 2 كيلو دقيق سايب", category: "فطارك عندنا", fridayPrice: 35, price: 40, stock: 45, image: "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&w=400&q=80" },
+        { name: "كيلو جبنة تلاجة", category: "فطارك عندنا", fridayPrice: 100, price: 120, stock: 24, image: "https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?auto=format&fit=crop&w=400&q=80" },
+        { name: "كيلو جبنة براميلي", category: "فطارك عندنا", fridayPrice: 150, price: 180, stock: 22, image: "https://images.unsplash.com/photo-1452195100486-9cc805987862?auto=format&fit=crop&w=400&q=80" },
+        { name: "كيلو جبنة قريش", category: "فطارك عندنا", fridayPrice: 110, price: 130, stock: 22, image: "https://images.unsplash.com/photo-1559561853-08451507cbe7?auto=format&fit=crop&w=400&q=80" },
+        { name: "كيلو جبنة كيري", category: "فطارك عندنا", fridayPrice: 140, price: 160, stock: 20, image: "https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?auto=format&fit=crop&w=400&q=80" },
+        { name: "عرض 2 علبة جبنة دومتي (500 جرام)", category: "فطارك عندنا", fridayPrice: 69, price: 80, stock: 25, image: "https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?auto=format&fit=crop&w=400&q=80" },
+        { name: "عرض طبق جبنة رومي (250 جرام)", category: "فطارك عندنا", fridayPrice: 65, price: 75, stock: 25, image: "https://images.unsplash.com/photo-1618164436241-4473940d1f5c?auto=format&fit=crop&w=400&q=80" },
+        { name: "كيلو طحينة سايب", category: "فطارك عندنا", fridayPrice: 120, price: 160, stock: 18, image: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?auto=format&fit=crop&w=400&q=80" },
+        { name: "كيلو حلاوة سايبة ممتازة", category: "فطارك عندنا", fridayPrice: 120, price: 140, stock: 18, image: "https://images.unsplash.com/photo-1519915028121-7d3463d20b13?auto=format&fit=crop&w=400&q=80" },
+        { name: "مربى البوادي كبير", category: "فطارك عندنا", fridayPrice: 45, price: 55, stock: 32, image: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=400&q=80" },
+        { name: "مربى البوادي صغير", category: "فطارك عندنا", fridayPrice: 23, price: 30, stock: 34, image: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=400&q=80" },
+        { name: "كيلو عسل أسمر", category: "فطارك عندنا", fridayPrice: 44, price: 55, stock: 28, image: "https://images.unsplash.com/photo-1587049352846-4a222e784d38?auto=format&fit=crop&w=400&q=80" },
+        { name: "شيكولاتة بلبن اسبريت 1 كجم", category: "فطارك عندنا", fridayPrice: 245, price: 260, stock: 14, image: "https://images.unsplash.com/photo-1606312619070-d48b4c652a52?auto=format&fit=crop&w=400&q=80" },
+        { name: "بلح رطب سكري", category: "فطارك عندنا", fridayPrice: 80, price: 90, stock: 26, image: "https://images.unsplash.com/photo-1592841200221-a6898f307baa?auto=format&fit=crop&w=400&q=80" },
+        { name: "مربى فيتراك 1 كجم", category: "فطارك عندنا", fridayPrice: 70, price: 80, stock: 24, image: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=400&q=80" },
+        { name: "شاي ليبتون 250 جم", category: "فطارك عندنا", fridayPrice: 58, price: 65, stock: 28, image: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=400&q=80" },
+        // المجمدات والأسماك
+        { name: "لانشون حلواني 250 جم", category: "المجمدات والأسماك", fridayPrice: 70, price: 80, stock: 22, image: "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=400&q=80" },
+        { name: "لانشون اوريجينال 250 جم", category: "المجمدات والأسماك", fridayPrice: 27, price: 35, stock: 24, image: "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=400&q=80" },
+        { name: "برجر المراعي عائلي", category: "المجمدات والأسماك", fridayPrice: 115, price: 125, stock: 20, image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=400&q=80" },
+        { name: "برجر توابل شرقية (25 قطعة)", category: "المجمدات والأسماك", fridayPrice: 125, price: 135, stock: 18, image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=400&q=80" },
+        { name: "طبق لحمة مفرومة 1/2 كجم", category: "المجمدات والأسماك", fridayPrice: 145, price: 160, stock: 18, image: "https://images.unsplash.com/photo-1602473812169-5c0e88f960dc?auto=format&fit=crop&w=400&q=80" },
+        { name: "طبق لحمة مفرومة 250 جم", category: "المجمدات والأسماك", fridayPrice: 75, price: 85, stock: 22, image: "https://images.unsplash.com/photo-1602473812169-5c0e88f960dc?auto=format&fit=crop&w=400&q=80" },
+        { name: "طبق كبدة 1/2 كجم", category: "المجمدات والأسماك", fridayPrice: 95, price: 110, stock: 20, image: "https://images.unsplash.com/photo-1594041680534-e8c8cdebd659?auto=format&fit=crop&w=400&q=80" },
+        { name: "طبق سجق 1/2 كجم", category: "المجمدات والأسماك", fridayPrice: 95, price: 110, stock: 20, image: "https://images.unsplash.com/photo-1587536849024-daaa4a417b16?auto=format&fit=crop&w=400&q=80" },
+        { name: "طبق برجر 1/2 كجم", category: "المجمدات والأسماك", fridayPrice: 95, price: 110, stock: 20, image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=400&q=80" },
+        { name: "طبق كفتة ارز 1/2 كجم", category: "المجمدات والأسماك", fridayPrice: 95, price: 110, stock: 20, image: "https://images.unsplash.com/photo-1529042410759-befb1204b468?auto=format&fit=crop&w=400&q=80" },
+        { name: "طبق حواوشي 1/2 كجم", category: "المجمدات والأسماك", fridayPrice: 85, price: 100, stock: 20, image: "https://images.unsplash.com/photo-1604382355076-af4b0eb60143?auto=format&fit=crop&w=400&q=80" },
+        { name: "طبق لحمة قطع 1/2 كجم", category: "المجمدات والأسماك", fridayPrice: 155, price: 170, stock: 16, image: "https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?auto=format&fit=crop&w=400&q=80" },
+        { name: "وجبة كوكي كاملة مع كيس بطاطس", category: "المجمدات والأسماك", fridayPrice: 230, price: 245, stock: 15, image: "https://images.unsplash.com/photo-1626645738196-c2a72c7bc8f3?auto=format&fit=crop&w=400&q=80" },
+        { name: "جناح كوكي", category: "المجمدات والأسماك", fridayPrice: 120, price: 130, stock: 18, image: "https://images.unsplash.com/photo-1527477396000-e27163b481c2?auto=format&fit=crop&w=400&q=80" },
+        { name: "دبوس كوكي", category: "المجمدات والأسماك", fridayPrice: 170, price: 180, stock: 16, image: "https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?auto=format&fit=crop&w=400&q=80" },
+        { name: "استربس مزايا كيلو", category: "المجمدات والأسماك", fridayPrice: 185, price: 200, stock: 16, image: "https://images.unsplash.com/photo-1562967914-608f82629710?auto=format&fit=crop&w=400&q=80" },
+        { name: "كيلو رنجة درجة أولى", category: "المجمدات والأسماك", fridayPrice: 115, price: 140, stock: 20, image: "https://images.unsplash.com/photo-1510130387422-82bed34b37e9?auto=format&fit=crop&w=400&q=80" },
+        { name: "عرض 4 علبة تونة", category: "المجمدات والأسماك", fridayPrice: 95, price: 120, stock: 24, image: "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?auto=format&fit=crop&w=400&q=80" },
+        // البقوليات والصوصات والعطارة
+        { name: "كيلو عدس أصفر", category: "البقوليات والصوصات والعطارة", fridayPrice: 50, price: 60, stock: 30, image: "https://images.unsplash.com/photo-1515543904379-3d757afe72e4?auto=format&fit=crop&w=400&q=80" },
+        { name: "كيلو عدس بجبة", category: "البقوليات والصوصات والعطارة", fridayPrice: 55, price: 60, stock: 30, image: "https://images.unsplash.com/photo-1515543904379-3d757afe72e4?auto=format&fit=crop&w=400&q=80" },
+        { name: "كيلو فاصوليا", category: "البقوليات والصوصات والعطارة", fridayPrice: 55, price: 80, stock: 26, image: "https://images.unsplash.com/photo-1551462147-ff29053bfc14?auto=format&fit=crop&w=400&q=80" },
+        { name: "كيلو لوبيا", category: "البقوليات والصوصات والعطارة", fridayPrice: 55, price: 80, stock: 26, image: "https://images.unsplash.com/photo-1515543904379-3d757afe72e4?auto=format&fit=crop&w=400&q=80" },
+        { name: "(1/8) بهارات مشكلة", category: "البقوليات والصوصات والعطارة", fridayPrice: 145, price: 200, stock: 16, image: "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&w=400&q=80" },
+        { name: "باكيت ملح بونو", category: "البقوليات والصوصات والعطارة", fridayPrice: 38, price: 48, stock: 22, image: "https://images.unsplash.com/photo-1518110925495-5fe2fda0442c?auto=format&fit=crop&w=400&q=80" },
+        { name: "باكيت ملح بونو (650 جرام)", category: "البقوليات والصوصات والعطارة", fridayPrice: 43, price: 50, stock: 22, image: "https://images.unsplash.com/photo-1518110925495-5fe2fda0442c?auto=format&fit=crop&w=400&q=80" },
+        { name: "عرض 2 برطمان صلصة 360 جم", category: "البقوليات والصوصات والعطارة", fridayPrice: 30, price: 40, stock: 28, image: "https://images.unsplash.com/photo-1472476443507-c7a5948772fc?auto=format&fit=crop&w=400&q=80" },
+        { name: "عرض 3 خل ثمار", category: "البقوليات والصوصات والعطارة", fridayPrice: 35, price: 45, stock: 20, image: "https://images.unsplash.com/photo-1605493725784-05ca1b4aee21?auto=format&fit=crop&w=400&q=80" },
+        { name: "كيلو كاتشب حار", category: "البقوليات والصوصات والعطارة", fridayPrice: 40, price: 50, stock: 20, image: "https://images.unsplash.com/photo-1472476443507-c7a5948772fc?auto=format&fit=crop&w=400&q=80" },
+        { name: "كيلو كاتشب بارد", category: "البقوليات والصوصات والعطارة", fridayPrice: 40, price: 50, stock: 20, image: "https://images.unsplash.com/photo-1472476443507-c7a5948772fc?auto=format&fit=crop&w=400&q=80" },
+        { name: "كيلو خل مركز سايب", category: "البقوليات والصوصات والعطارة", fridayPrice: 30, price: 40, stock: 24, image: "https://images.unsplash.com/photo-1605493725784-05ca1b4aee21?auto=format&fit=crop&w=400&q=80" },
+        { name: "كيلو مخلل بوليف", category: "البقوليات والصوصات والعطارة", fridayPrice: 20, price: 30, stock: 28, image: "https://images.unsplash.com/photo-1589621316382-008455b857cd?auto=format&fit=crop&w=400&q=80" },
+        { name: "2 كيس بقسماط ريتش باك 500 جرام", category: "البقوليات والصوصات والعطارة", fridayPrice: 50, price: 60, stock: 22, image: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=400&q=80" },
+        // المشروبات الشتوية
+        { name: "عرض 2 سحلب علاء (250 جرام)", category: "المشروبات الشتوية", fridayPrice: 50, price: 60, stock: 24, image: "https://images.unsplash.com/photo-1517701550927-30cf4ba1f4d6?auto=format&fit=crop&w=400&q=80" },
+        { name: "سحلب علاء الدين (400 جرام)", category: "المشروبات الشتوية", fridayPrice: 45, price: 50, stock: 24, image: "https://images.unsplash.com/photo-1517701550927-30cf4ba1f4d6?auto=format&fit=crop&w=400&q=80" },
+        // المنظفات والمعطرات
+        { name: "أوكسي 2.5 كيلو أوتوماتيك", category: "المنظفات والمعطرات", fridayPrice: 180, price: 190, stock: 20, image: "https://images.unsplash.com/photo-1585421514738-01798e348b17?auto=format&fit=crop&w=400&q=80" },
+        { name: "أوكسي 5 كيلو أوتوماتيك", category: "المنظفات والمعطرات", fridayPrice: 305, price: 320, stock: 15, image: "https://images.unsplash.com/photo-1585421514738-01798e348b17?auto=format&fit=crop&w=400&q=80" },
+        { name: "أوكسي 9 كيلو أوتوماتيك", category: "المنظفات والمعطرات", fridayPrice: 465, price: 480, stock: 12, image: "https://images.unsplash.com/photo-1585421514738-01798e348b17?auto=format&fit=crop&w=400&q=80" },
+        { name: "عرض 2 بخاخ معطر جو فلاور", category: "المنظفات والمعطرات", fridayPrice: 85, price: 110, stock: 18, image: "https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?auto=format&fit=crop&w=400&q=80" },
+        { name: "عرض لفة صابون (4 صابونة 110 جرام)", category: "المنظفات والمعطرات", fridayPrice: 50, price: 60, stock: 22, image: "https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?auto=format&fit=crop&w=400&q=80" }
+      ];
+
+      const products = productSeed.map((item, index) => ({
+        id: index + 1,
+        ...item,
+        image: item.image || categoryImages[item.category] || "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=700&q=80"
+      }));
+
+      const cart = {};
+      const productsBox = document.getElementById("products");
+      const cartItemsBox = document.getElementById("cartItems");
+      const cartSummaryBox = document.getElementById("cartSummary");
+      const notice = document.getElementById("notice");
+      const checkoutModal = document.getElementById("checkoutModal");
+      const cartSection = document.getElementById("cartSection");
+      const floatingCartBtn = document.getElementById("floatingCartBtn");
+      const floatingCartCount = document.getElementById("floatingCartCount");
+      const customerNameInput = document.getElementById("customerName");
+      const customerPhoneInput = document.getElementById("customerPhone");
+      const customerAddressInput = document.getElementById("customerAddress");
+      const productDetailModal = document.getElementById("productDetailModal");
+      const productDetailImage = document.getElementById("productDetailImage");
+      const productDetailTitle = document.getElementById("productDetailTitle");
+      const productDetailCategory = document.getElementById("productDetailCategory");
+      const productDetailStock = document.getElementById("productDetailStock");
+      const productDetailPrice = document.getElementById("productDetailPrice");
+      const offerCountdown = document.getElementById("offerCountdown");
+      const categoriesRow = document.getElementById("categoriesRow");
+      const searchInput = document.getElementById("searchInput");
+
+      const fridayBadge = document.getElementById("fridayBadge");
+
+      function normalizeArabicText(value) {
+        return value.toLowerCase().trim();
+      }
+
+      function renderCategories() {
+        const categories = ["الكل", ...new Set(products.map((item) => item.category))];
+        categoriesRow.innerHTML = "";
+
+        categories.forEach((category) => {
+          const btn = document.createElement("button");
+          btn.className = `cat-btn ${selectedCategory === category ? "active" : ""}`;
+          btn.type = "button";
+          btn.textContent = category;
+          btn.addEventListener("click", () => {
+            selectedCategory = category;
+            renderCategories();
+            renderProducts();
+          });
+          categoriesRow.appendChild(btn);
+        });
+      }
+
+      function getNextFridayStart(fromDate) {
+        const next = new Date(fromDate);
+        next.setHours(0, 0, 0, 0);
+        const daysUntilFriday = (5 - fromDate.getDay() + 7) % 7 || 7;
+        next.setDate(next.getDate() + daysUntilFriday);
+        return next;
+      }
+
+      function formatRemaining(ms) {
+        const totalSeconds = Math.max(0, Math.floor(ms / 1000));
+        const days = Math.floor(totalSeconds / 86400);
+        const hours = Math.floor((totalSeconds % 86400) / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        const seconds = totalSeconds % 60;
+        return `${days} يوم ${hours} ساعة ${minutes} دقيقة ${seconds} ثانية`;
+      }
+
+      function refreshOfferState() {
+        const now = new Date();
+        const wasFriday = isFriday;
+        isFriday = now.getDay() === 5;
+
+        fridayBadge.textContent = isFriday ? "عروض الجمعة مفعلة الان" : "العروض متاحة فقط يوم الجمعة";
+        fridayBadge.classList.toggle("active", isFriday);
+
+        if (isFriday) {
+          offerCountdown.textContent = "اليوم الجمعة: اسعار العروض ظاهرة ومفعلة طوال اليوم.";
+        } else {
+          const nextFriday = getNextFridayStart(now);
+          const remaining = nextFriday.getTime() - now.getTime();
+          offerCountdown.textContent = `الوقت المتبقي لبدء عروض الجمعة: ${formatRemaining(remaining)}`;
+        }
+
+        if (wasFriday !== isFriday) {
+          renderProducts();
+          renderCart();
+        }
+      }
+
+      function getSalePrice(item) {
+        return isFriday ? item.fridayPrice : item.price;
+      }
+
+      function addToCart(id) {
+        const item = products.find((p) => p.id === id);
+        if (!item || item.stock < 1) return;
+        const current = cart[id] || 0;
+        cart[id] = current + 1;
+        item.stock -= 1;
+        renderProducts();
+        renderCart();
+      }
+
+      function decreaseFromCart(id) {
+        if (!cart[id]) return;
+        const item = products.find((p) => p.id === id);
+        cart[id] -= 1;
+        if (cart[id] <= 0) delete cart[id];
+        if (item) item.stock += 1;
+        renderProducts();
+        renderCart();
+      }
+
+      function renderProducts() {
+        productsBox.innerHTML = "";
+        const normalizedSearch = normalizeArabicText(searchTerm);
+        const filteredProducts = products.filter((item) => {
+          const matchesCategory = selectedCategory === "الكل" || item.category === selectedCategory;
+          const matchesSearch = !normalizedSearch || normalizeArabicText(item.name).includes(normalizedSearch);
+          return matchesCategory && matchesSearch;
+        });
+
+        if (!filteredProducts.length) {
+          productsBox.innerHTML = '<p class="muted">لا توجد منتجات مطابقة لنتيجة البحث الحالية.</p>';
+          return;
+        }
+
+        filteredProducts.forEach((item) => {
+          const out = item.stock <= 0;
+          const saving = item.price - item.fridayPrice;
+          const card = document.createElement("article");
+          card.className = "card";
+          card.innerHTML = `
+            <img class="img" src="${item.image}" alt="${item.name}" />
+            <div class="p">
+              ${out ? '<span class="status out">نفذ</span>' : ""}
+              <div class="name">${item.name}</div>
+              <div class="muted">${item.category}</div>
+              ${
+                isFriday
+                  ? `<div class="price-box friday">
+                      <div class="price-row">
+                        <span class="label">قبل الخصم:</span>
+                        <span class="old-val">${item.price} ج.م</span>
+                      </div>
+                      <div class="price-row">
+                        <span class="label red">بعد الخصم:</span>
+                        <span class="new-val">${item.fridayPrice} ج.م</span>
+                      </div>
+                      <div class="save-badge">وفّر ${saving} ج.م</div>
+                    </div>`
+                  : `<div class="price-box normal">
+                      <div class="price-row">
+                        <span class="label">السعر:</span>
+                        <span class="new-val">${item.price} ج.م</span>
+                      </div>
+                      <div class="price-row small">
+                        <span class="label green">الجمعة:</span>
+                        <span class="friday-val">${item.fridayPrice} ج.م</span>
+                      </div>
+                    </div>`
+              }
+              <div class="muted">المتوفر: ${item.stock}</div>
+              <button class="btn-add" ${out ? "disabled" : ""}>${out ? "غير متاح" : "اضف الى السلة"}</button>
+            </div>
+          `;
+          card.querySelector(".img").addEventListener("click", () => openProductDetails(item));
+          card.querySelector(".btn-add").addEventListener("click", () => addToCart(item.id));
+          productsBox.appendChild(card);
+        });
+      }
+
+      function getCartItems() {
+        return products
+          .filter((p) => cart[p.id])
+          .map((p) => ({ ...p, qty: cart[p.id], unitPrice: getSalePrice(p) }));
+      }
+
+      function renderCart() {
+        const items = getCartItems();
+        const totalItems = items.reduce((sum, item) => sum + item.qty, 0);
+        floatingCartCount.textContent = totalItems;
+
+        if (items.length === 0) {
+          cartItemsBox.innerHTML = '<p class="muted">السلة فارغة حاليا.</p>';
+          cartSummaryBox.innerHTML = "";
+          return;
+        }
+
+        cartItemsBox.innerHTML = "";
+        let subtotal = 0;
+        items.forEach((item) => {
+          subtotal += item.unitPrice * item.qty;
+          const row = document.createElement("div");
+          row.className = "cart-item";
+          row.innerHTML = `
+            <div>
+              <div><strong>${item.name}</strong></div>
+              <div class="muted">${item.unitPrice} ج.م للقطعة</div>
+            </div>
+            <div class="qty">
+              <button class="minus">-</button>
+              <strong>${item.qty}</strong>
+              <button class="plus">+</button>
+            </div>
+          `;
+          row.querySelector(".minus").addEventListener("click", () => decreaseFromCart(item.id));
+          row.querySelector(".plus").addEventListener("click", () => addToCart(item.id));
+          cartItemsBox.appendChild(row);
+        });
+
+        const finalTotal = subtotal + DELIVERY_FEE;
+        cartSummaryBox.innerHTML = `
+          <div class="totals">
+            <div><span>اجمالي المنتجات</span><span>${subtotal} ج.م</span></div>
+            <div><span>رسوم التوصيل</span><span>${DELIVERY_FEE} ج.م</span></div>
+            <div class="final"><span>الاجمالي النهائي</span><span>${finalTotal} ج.م</span></div>
+          </div>
+        `;
+      }
+
+      function composeMessage(customer) {
+        const items = getCartItems();
+        const subtotal = items.reduce((sum, i) => sum + i.qty * i.unitPrice, 0);
+        const total = subtotal + DELIVERY_FEE;
+        const lines = [
+          "طلب جديد من موقع اسواق تبارك",
+          "-----------------------------",
+          `اسم العميل: ${customer.name}`,
+          `رقم التليفون: ${customer.phone}`,
+          `العنوان: ${customer.address}`,
+          "-----------------------------",
+          ...items.map((i) => `${i.name} | الكمية: ${i.qty} | السعر: ${i.qty * i.unitPrice} ج.م`),
+          "-----------------------------",
+          `اجمالي المنتجات: ${subtotal} ج.م`,
+          `رسوم التوصيل: ${DELIVERY_FEE} ج.م`,
+          `الاجمالي النهائي: ${total} ج.م`
+        ];
+        return lines.join("\n");
+      }
+
+      function openCheckoutModal() {
+        const items = getCartItems();
+        if (!items.length) {
+          notice.textContent = "السلة فارغة. اضف منتجات اولا.";
+          return;
+        }
+        notice.textContent = "";
+        checkoutModal.classList.add("open");
+      }
+
+      function closeCheckoutModal() {
+        checkoutModal.classList.remove("open");
+      }
+
+      function openProductDetails(item) {
+        productDetailImage.src = item.image;
+        productDetailImage.alt = item.name;
+        productDetailTitle.textContent = item.name;
+        productDetailCategory.textContent = `القسم: ${item.category}`;
+        productDetailStock.textContent = `المتوفر حاليا: ${item.stock}`;
+
+        if (isFriday) {
+          productDetailPrice.innerHTML = `
+            <div style="margin-top:10px; padding:10px; background:#fff0f0; border-radius:8px;">
+              <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                <span style="color:#888; font-size:13px;">قبل الخصم:</span>
+                <span style="text-decoration:line-through; color:#b95a5a; font-size:14px;">${item.price} ج.م</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span style="color:#b51f1f; font-weight:700; font-size:13px;">بعد الخصم:</span>
+                <span style="color:#b51f1f; font-weight:800; font-size:18px;">${item.fridayPrice} ج.م</span>
+              </div>
+              <div style="text-align:center; margin-top:8px; color:#138a4a; font-weight:700; font-size:12px;">وفّر ${item.price - item.fridayPrice} ج.م</div>
+            </div>`;
+        } else {
+          productDetailPrice.innerHTML = `
+            <div style="margin-top:10px; padding:10px; background:#fff0f0; border-radius:8px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                <span style="color:#333; font-size:13px;">السعر:</span>
+                <span style="color:#b51f1f; font-weight:800; font-size:18px;">${item.price} ج.م</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center; padding-top:8px; border-top:1px dashed #ddd;">
+                <span style="color:#888; font-size:12px;">سعر عرض الجمعة:</span>
+                <span style="color:#138a4a; font-weight:700; font-size:14px;">${item.fridayPrice} ج.م</span>
+              </div>
+            </div>`;
+        }
+
+        productDetailModal.classList.add("open");
+      }
+
+      function closeProductDetails() {
+        productDetailModal.classList.remove("open");
+      }
+
+      function confirmAndSendToWhatsApp() {
+        const name = customerNameInput.value.trim();
+        const phone = customerPhoneInput.value.trim();
+        const address = customerAddressInput.value.trim();
+
+        if (!name || !phone || !address) {
+          notice.textContent = "يرجى ادخال اسم العميل ورقم التليفون والعنوان قبل الارسال.";
+          return;
+        }
+
+        const text = encodeURIComponent(composeMessage({ name, phone, address }));
+        const appUrl = `whatsapp://send?phone=${WHATSAPP_NUMBER}&text=${text}`;
+        const webUrl = `https://web.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${text}`;
+        const isMobile = /Android|iPhone|iPad|iPod|Windows Phone/i.test(navigator.userAgent);
+
+        notice.textContent = "اذا لم يتم فتح واتساب، استخدم زر نسخ نص الطلب.";
+        closeCheckoutModal();
+        Object.keys(cart).forEach((key) => delete cart[key]);
+        renderCart();
+        if (isMobile) {
+          location.href = appUrl;
+          setTimeout(() => {
+            location.href = webUrl;
+          }, 800);
+          return;
+        }
+        window.open(webUrl, "_blank", "noopener");
+      }
+
+      async function copyText() {
+        const items = getCartItems();
+        if (!items.length) {
+          notice.textContent = "السلة فارغة. اضف منتجات اولا.";
+          return;
+        }
+
+        const name = customerNameInput.value.trim() || "غير مذكور";
+        const phone = customerPhoneInput.value.trim() || "غير مذكور";
+        const address = customerAddressInput.value.trim() || "غير مذكور";
+
+        try {
+          await navigator.clipboard.writeText(composeMessage({ name, phone, address }));
+          notice.textContent = "تم نسخ نص الطلب. الصقه داخل واتساب ثم ارسله.";
+        } catch (err) {
+          notice.textContent = "تعذر النسخ التلقائي. يمكنك نسخ الطلب يدويا.";
+        }
+      }
+
+      document.getElementById("sendBtn").addEventListener("click", openCheckoutModal);
+      document.getElementById("copyBtn").addEventListener("click", copyText);
+      document.getElementById("cancelCheckoutBtn").addEventListener("click", closeCheckoutModal);
+      document.getElementById("confirmSendBtn").addEventListener("click", confirmAndSendToWhatsApp);
+      document.getElementById("closeProductDetailBtn").addEventListener("click", closeProductDetails);
+      productDetailModal.addEventListener("click", (event) => {
+        if (event.target === productDetailModal) {
+          closeProductDetails();
+        }
+      });
+      searchInput.addEventListener("input", (event) => {
+        searchTerm = event.target.value;
+        renderProducts();
+      });
+      floatingCartBtn.addEventListener("click", () => {
+        cartSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+
+      refreshOfferState();
+      setInterval(refreshOfferState, 1000);
+      renderCategories();
+      renderProducts();
+      renderCart();
+    </script>
+  </body>
+</html>
