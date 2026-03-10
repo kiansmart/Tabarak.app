@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>اسواق تبارك | متجر السوبر ماركت</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style>
       :root {
         --red-900: #7f1010;
@@ -27,6 +28,192 @@
           radial-gradient(circle at 10% 10%, #ffd9d9 0, transparent 35%),
           radial-gradient(circle at 85% 5%, #ffc5c5 0, transparent 28%),
           var(--bg);
+      }
+
+      body.loading {
+        overflow: hidden;
+      }
+
+      .page-loader {
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(145deg, rgba(181, 31, 31, 0.96), rgba(127, 16, 16, 0.98));
+        color: #fff;
+        transition: opacity 0.45s ease, visibility 0.45s ease;
+      }
+
+      .page-loader.hidden {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      .loader-inner {
+        text-align: center;
+        padding: 24px;
+      }
+
+      .hourglass {
+        position: relative;
+        width: 58px;
+        height: 88px;
+        margin: 0 auto 18px;
+        border-left: 4px solid rgba(255, 255, 255, 0.92);
+        border-right: 4px solid rgba(255, 255, 255, 0.92);
+        border-radius: 8px;
+        animation: flipHourglass 1.8s ease-in-out infinite;
+      }
+
+      .hourglass::before,
+      .hourglass::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        border-left: 21px solid transparent;
+        border-right: 21px solid transparent;
+      }
+
+      .hourglass::before {
+        top: 8px;
+        border-bottom: 28px solid #fff2c7;
+        animation: sandTop 1.8s linear infinite;
+      }
+
+      .hourglass::after {
+        bottom: 8px;
+        border-top: 28px solid #ffd4d4;
+        animation: sandBottom 1.8s linear infinite;
+      }
+
+      .hourglass-neck {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 6px;
+        height: 14px;
+        background: #fff8df;
+        transform: translate(-50%, -50%);
+        border-radius: 999px;
+        animation: sandFlow 1.8s linear infinite;
+      }
+
+      .hourglass-line {
+        position: absolute;
+        right: -6px;
+        left: -6px;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.92);
+        border-radius: 999px;
+      }
+
+      .hourglass-line.top {
+        top: 0;
+      }
+
+      .hourglass-line.middle {
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      .hourglass-line.bottom {
+        bottom: 0;
+      }
+
+      .loader-text {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 6px;
+      }
+
+      .loader-subtext {
+        margin: 0;
+        font-size: 14px;
+        opacity: 0.88;
+      }
+
+      @keyframes flipHourglass {
+        0%,
+        44% {
+          transform: rotate(0deg);
+        }
+
+        50%,
+        94% {
+          transform: rotate(180deg);
+        }
+
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes sandTop {
+        0% {
+          opacity: 1;
+          transform: translateX(-50%) scaleY(1);
+        }
+
+        45% {
+          opacity: 0.25;
+          transform: translateX(-50%) scaleY(0.2);
+        }
+
+        50% {
+          opacity: 0;
+          transform: translateX(-50%) scaleY(0);
+        }
+
+        100% {
+          opacity: 1;
+          transform: translateX(-50%) scaleY(1);
+        }
+      }
+
+      @keyframes sandBottom {
+        0% {
+          opacity: 0.2;
+          transform: translateX(-50%) scaleY(0.2);
+        }
+
+        45% {
+          opacity: 1;
+          transform: translateX(-50%) scaleY(1);
+        }
+
+        50% {
+          opacity: 0;
+          transform: translateX(-50%) scaleY(0);
+        }
+
+        100% {
+          opacity: 0.2;
+          transform: translateX(-50%) scaleY(0.2);
+        }
+      }
+
+      @keyframes sandFlow {
+        0%,
+        12% {
+          opacity: 0;
+          transform: translate(-50%, -50%) scaleY(0);
+        }
+
+        18%,
+        44% {
+          opacity: 1;
+          transform: translate(-50%, -50%) scaleY(1);
+        }
+
+        50%,
+        100% {
+          opacity: 0;
+          transform: translate(-50%, -50%) scaleY(0);
+        }
       }
 
       .wrap {
@@ -602,6 +789,14 @@
           width: min(1150px, 96%);
         }
 
+        .loader-text {
+          font-size: 18px;
+        }
+
+        .loader-subtext {
+          font-size: 13px;
+        }
+
         .hero-top {
           gap: 12px;
         }
@@ -743,7 +938,20 @@
       }
     </style>
   </head>
-  <body>
+  <body class="loading">
+    <div id="pageLoader" class="page-loader" aria-live="polite" aria-busy="true">
+      <div class="loader-inner">
+        <div class="hourglass" aria-hidden="true">
+          <span class="hourglass-line top"></span>
+          <span class="hourglass-line middle"></span>
+          <span class="hourglass-line bottom"></span>
+          <span class="hourglass-neck"></span>
+        </div>
+        <div class="loader-text">جاري تحميل الصفحة</div>
+        <p class="loader-subtext">انتظر قليلا حتى يتم تجهيز المنتجات والعروض.</p>
+      </div>
+    </div>
+
     <div class="wrap">
       <header class="hero">
         <div class="hero-top">
@@ -869,10 +1077,8 @@
       };
 
       const productSeed = [
-        // قسم البيض
         { name: "طبق بيض أبيض وزن 2 كجم", category: "قسم البيض", fridayPrice: 125, price: 135, stock: 30, image: "image/01.jpg" },
         { name: "طبق بيض أحمر وزن 2 كجم", category: "قسم البيض", fridayPrice: 135, price: 140, stock: 28, image: "image/02.jpg" },
-        // الأرز والمكرونة
         { name: "كيلو أرز وسط", category: "الأرز والمكرونة", fridayPrice: 22, price: 28, stock: 45, image: "image/05.jpg" },
         { name: "كيلو أرز عريض", category: "الأرز والمكرونة", fridayPrice: 27, price: 32, stock: 45, image: "image/06.jpg" },
         { name: "كيلو أرز بسمتي اقتصادي", category: "الأرز والمكرونة", fridayPrice: 45, price: 50, stock: 38, image: "image/75.png" },
@@ -894,7 +1100,6 @@
         { name: "شيكارة مكرونة (أي نوع ما عدا الاسباجتي)", category: "الأرز والمكرونة", fridayPrice: 189, price: 220, stock: 16, image: "image/141.jpg" },
         { name: "شيكارة مكرونة الاسباجتي", category: "الأرز والمكرونة", fridayPrice: 225, price: 250, stock: 16, image: "image/17.jpg" },
         { name: "عرض 10 كيس مكرونة الملكة (مشكل)", category: "الأرز والمكرونة", fridayPrice: 138, price: 150, stock: 25, image: "image/19.jpg" },
-        // الزيوت والسمن
         { name: "عرض 2 زيت سهر (700 جرام)", category: "الزيوت والسمن", fridayPrice: 95, price: 110, stock: 30, image: "image/33.jpg" },
         { name: "2 زجاجة زيت سيلا (لتر صافي)", category: "الزيوت والسمن", fridayPrice: 129, price: 150, stock: 26, image: "image/123.jpg" },
         { name: "2 زجاجة زيت قلية او حلوة (لتر صافي)", category: "الزيوت والسمن", fridayPrice: 145, price: 160, stock: 24, image: "image/122.jpg" },
@@ -912,7 +1117,6 @@
         { name: "علبة سمنة قوت القلوب", category: "الزيوت والسمن", fridayPrice: 100, price: 120, stock: 25, image: "image/92.png" },
         { name: "سمنة (كريستال/روابي/جنة) 2 كيلو", category: "الزيوت والسمن", fridayPrice: 155, price: 165, stock: 20, image: "image/25.jpg" },
         { name: "سمنة (كريستال/روابي/جنة) 11 كيلو", category: "الزيوت والسمن", fridayPrice: 1080, price: 1150, stock: 10, image: "image/129.jpg" },
-        // فطارك عندنا
         { name: "عرض 2 كيلو سكر (1000 جرام)", category: "فطارك عندنا", fridayPrice: 55, price: 60, stock: 40, image: "image/20.jpg" },
         { name: "باكت سكر 10 كجم", category: "فطارك عندنا", fridayPrice: 275, price: 300, stock: 16, image: "image/93.jpg" },
         { name: "عرض 2 كيلو دقيق سايب", category: "فطارك عندنا", fridayPrice: 35, price: 40, stock: 45, image: "image/21.jpg" },
@@ -931,7 +1135,6 @@
         { name: "بلح رطب سكري", category: "فطارك عندنا", fridayPrice: 80, price: 90, stock: 26, image: "image/58.jpg" },
         { name: "مربى فيتراك 1 كجم", category: "فطارك عندنا", fridayPrice: 70, price: 80, stock: 24, image: "image/68.png" },
         { name: "شاي ليبتون 250 جم", category: "فطارك عندنا", fridayPrice: 58, price: 65, stock: 28, image: "image/72.png" },
-        // المجمدات والأسماك
         { name: "لانشون حلواني 250 جم", category: "المجمدات والأسماك", fridayPrice: 70, price: 80, stock: 22, image: "image/79.png" },
         { name: "لانشون اوريجينال 250 جم", category: "المجمدات والأسماك", fridayPrice: 27, price: 35, stock: 24, image: "image/78.png" },
         { name: "برجر المراعي عائلي", category: "المجمدات والأسماك", fridayPrice: 115, price: 125, stock: 20, image: "image/37.jpg" },
@@ -950,7 +1153,6 @@
         { name: "استربس مزايا كيلو", category: "المجمدات والأسماك", fridayPrice: 185, price: 200, stock: 16, image: "image/144.jpg" },
         { name: "كيلو رنجة درجة أولى", category: "المجمدات والأسماك", fridayPrice: 115, price: 140, stock: 20, image: "image/40.jpg" },
         { name: "عرض 4 علبة تونة", category: "المجمدات والأسماك", fridayPrice: 95, price: 120, stock: 24, image: "image/41.jpg" },
-        // البقوليات والصوصات والعطارة
         { name: "كيلو عدس أصفر", category: "البقوليات والصوصات والعطارة", fridayPrice: 50, price: 60, stock: 30, image: "image/52.jpg" },
         { name: "كيلو عدس بجبة", category: "البقوليات والصوصات والعطارة", fridayPrice: 55, price: 60, stock: 30, image: "image/53.jpg" },
         { name: "كيلو فاصوليا", category: "البقوليات والصوصات والعطارة", fridayPrice: 55, price: 80, stock: 26, image: "image/54.jpg" },
@@ -965,10 +1167,8 @@
         { name: "كيلو خل مركز سايب", category: "البقوليات والصوصات والعطارة", fridayPrice: 30, price: 40, stock: 24, image: "image/60.jpg" },
         { name: "كيلو مخلل بوليف", category: "البقوليات والصوصات والعطارة", fridayPrice: 20, price: 30, stock: 28, image: "image/45.jpg" },
         { name: "2 كيس بقسماط ريتش باك 500 جرام", category: "البقوليات والصوصات والعطارة", fridayPrice: 50, price: 60, stock: 22, image: "image/113.jpg" },
-        // المشروبات الشتوية
         { name: "عرض 2 سحلب علاء (250 جرام)", category: "المشروبات الشتوية", fridayPrice: 50, price: 60, stock: 24, image: "image/47.jpg" },
         { name: "سحلب علاء الدين (400 جرام)", category: "المشروبات الشتوية", fridayPrice: 45, price: 50, stock: 24, image: "image/61.jpg" },
-        // المنظفات والمعطرات
         { name: "أوكسي 2.5 كيلو أوتوماتيك", category: "المنظفات والمعطرات", fridayPrice: 180, price: 190, stock: 20, image: "image/63.jpg" },
         { name: "أوكسي 5 كيلو أوتوماتيك", category: "المنظفات والمعطرات", fridayPrice: 305, price: 320, stock: 15, image: "image/64.jpg" },
         { name: "أوكسي 9 كيلو أوتوماتيك", category: "المنظفات والمعطرات", fridayPrice: 465, price: 480, stock: 12, image: "image/65.jpg" },
@@ -983,6 +1183,7 @@
       }));
 
       const cart = {};
+      const pageLoader = document.getElementById("pageLoader");
       const productsBox = document.getElementById("products");
       const cartItemsBox = document.getElementById("cartItems");
       const cartSummaryBox = document.getElementById("cartSummary");
@@ -1003,8 +1204,13 @@
       const offerCountdown = document.getElementById("offerCountdown");
       const categoriesRow = document.getElementById("categoriesRow");
       const searchInput = document.getElementById("searchInput");
-
       const fridayBadge = document.getElementById("fridayBadge");
+
+      function hideLoader() {
+        pageLoader.classList.add("hidden");
+        document.body.classList.remove("loading");
+        pageLoader.setAttribute("aria-busy", "false");
+      }
 
       function normalizeArabicText(value) {
         return value.toLowerCase().trim();
@@ -1345,22 +1551,11 @@
       renderCategories();
       renderProducts();
       renderCart();
+
+      // تبقى شاشة التحميل ظاهرة حتى اكتمال تحميل الصور وباقي عناصر الصفحة.
+      window.addEventListener("load", () => {
+        setTimeout(hideLoader, 250);
+      });
     </script>
   </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
