@@ -30,6 +30,192 @@
           var(--bg);
       }
 
+      body.loading {
+        overflow: hidden;
+      }
+
+      .page-loader {
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(145deg, rgba(181, 31, 31, 0.96), rgba(127, 16, 16, 0.98));
+        color: #fff;
+        transition: opacity 0.45s ease, visibility 0.45s ease;
+      }
+
+      .page-loader.hidden {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      .loader-inner {
+        text-align: center;
+        padding: 24px;
+      }
+
+      .hourglass {
+        position: relative;
+        width: 58px;
+        height: 88px;
+        margin: 0 auto 18px;
+        border-left: 4px solid rgba(255, 255, 255, 0.92);
+        border-right: 4px solid rgba(255, 255, 255, 0.92);
+        border-radius: 8px;
+        animation: flipHourglass 1.8s ease-in-out infinite;
+      }
+
+      .hourglass::before,
+      .hourglass::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        border-left: 21px solid transparent;
+        border-right: 21px solid transparent;
+      }
+
+      .hourglass::before {
+        top: 8px;
+        border-bottom: 28px solid #fff2c7;
+        animation: sandTop 1.8s linear infinite;
+      }
+
+      .hourglass::after {
+        bottom: 8px;
+        border-top: 28px solid #ffd4d4;
+        animation: sandBottom 1.8s linear infinite;
+      }
+
+      .hourglass-neck {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 6px;
+        height: 14px;
+        background: #fff8df;
+        transform: translate(-50%, -50%);
+        border-radius: 999px;
+        animation: sandFlow 1.8s linear infinite;
+      }
+
+      .hourglass-line {
+        position: absolute;
+        right: -6px;
+        left: -6px;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.92);
+        border-radius: 999px;
+      }
+
+      .hourglass-line.top {
+        top: 0;
+      }
+
+      .hourglass-line.middle {
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      .hourglass-line.bottom {
+        bottom: 0;
+      }
+
+      .loader-text {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 6px;
+      }
+
+      .loader-subtext {
+        margin: 0;
+        font-size: 14px;
+        opacity: 0.88;
+      }
+
+      @keyframes flipHourglass {
+        0%,
+        44% {
+          transform: rotate(0deg);
+        }
+
+        50%,
+        94% {
+          transform: rotate(180deg);
+        }
+
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes sandTop {
+        0% {
+          opacity: 1;
+          transform: translateX(-50%) scaleY(1);
+        }
+
+        45% {
+          opacity: 0.25;
+          transform: translateX(-50%) scaleY(0.2);
+        }
+
+        50% {
+          opacity: 0;
+          transform: translateX(-50%) scaleY(0);
+        }
+
+        100% {
+          opacity: 1;
+          transform: translateX(-50%) scaleY(1);
+        }
+      }
+
+      @keyframes sandBottom {
+        0% {
+          opacity: 0.2;
+          transform: translateX(-50%) scaleY(0.2);
+        }
+
+        45% {
+          opacity: 1;
+          transform: translateX(-50%) scaleY(1);
+        }
+
+        50% {
+          opacity: 0;
+          transform: translateX(-50%) scaleY(0);
+        }
+
+        100% {
+          opacity: 0.2;
+          transform: translateX(-50%) scaleY(0.2);
+        }
+      }
+
+      @keyframes sandFlow {
+        0%,
+        12% {
+          opacity: 0;
+          transform: translate(-50%, -50%) scaleY(0);
+        }
+
+        18%,
+        44% {
+          opacity: 1;
+          transform: translate(-50%, -50%) scaleY(1);
+        }
+
+        50%,
+        100% {
+          opacity: 0;
+          transform: translate(-50%, -50%) scaleY(0);
+        }
+      }
+
       .wrap {
         width: min(1150px, 94%);
         margin: 18px auto 40px;
@@ -127,16 +313,6 @@
         display: block;
         margin-top: 6px;
         color: #a33131;
-      }
-
-      .banner-media {
-        display: block;
-        width: 100%;
-        max-height: 220px;
-        object-fit: cover;
-        border-radius: 12px;
-        margin: 0 0 12px;
-        border: 1px solid #efb6b6;
       }
 
       .floating-tools {
@@ -613,6 +789,14 @@
           width: min(1150px, 96%);
         }
 
+        .loader-text {
+          font-size: 18px;
+        }
+
+        .loader-subtext {
+          font-size: 13px;
+        }
+
         .hero-top {
           gap: 12px;
         }
@@ -754,7 +938,20 @@
       }
     </style>
   </head>
-  <body>
+  <body class="loading">
+    <div id="pageLoader" class="page-loader" aria-live="polite" aria-busy="true">
+      <div class="loader-inner">
+        <div class="hourglass" aria-hidden="true">
+          <span class="hourglass-line top"></span>
+          <span class="hourglass-line middle"></span>
+          <span class="hourglass-line bottom"></span>
+          <span class="hourglass-neck"></span>
+        </div>
+        <div class="loader-text">جاري تحميل الصفحة</div>
+        <p class="loader-subtext">انتظر قليلا حتى يتم تجهيز المنتجات والعروض.</p>
+      </div>
+    </div>
+
     <div class="wrap">
       <header class="hero">
         <div class="hero-top">
@@ -810,7 +1007,6 @@
 
       <a class="banner-link" href="https://wa.me/201030566078" target="_blank" rel="noopener" aria-label="الانتقال الى صفحة التواصل على واتساب">
         <div class="banner">
-          <img class="banner-media" src="image/لوجو .jpg" alt="صورة البانر الاعلاني لاعلى الفوتر" />
           بنر اعلاني اعلى الفوتر - اضغط للانتقال الى صفحة التواصل على واتساب
           <small>للاستفسارات السريعة والعروض الخاصة</small>
         </div>
@@ -987,6 +1183,7 @@
       }));
 
       const cart = {};
+      const pageLoader = document.getElementById("pageLoader");
       const productsBox = document.getElementById("products");
       const cartItemsBox = document.getElementById("cartItems");
       const cartSummaryBox = document.getElementById("cartSummary");
@@ -1008,6 +1205,12 @@
       const categoriesRow = document.getElementById("categoriesRow");
       const searchInput = document.getElementById("searchInput");
       const fridayBadge = document.getElementById("fridayBadge");
+
+      function hideLoader() {
+        pageLoader.classList.add("hidden");
+        document.body.classList.remove("loading");
+        pageLoader.setAttribute("aria-busy", "false");
+      }
 
       function normalizeArabicText(value) {
         return value.toLowerCase().trim();
@@ -1348,6 +1551,11 @@
       renderCategories();
       renderProducts();
       renderCart();
+
+      // تبقى شاشة التحميل ظاهرة حتى اكتمال تحميل الصور وباقي عناصر الصفحة.
+      window.addEventListener("load", () => {
+        setTimeout(hideLoader, 250);
+      });
     </script>
   </body>
 </html>
