@@ -4,8 +4,189 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>اسواق تبارك | متجر السوبر ماركت</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style>
+      /* ===== LOADING SCREEN ===== */
+      .loading-overlay {
+        position: fixed;
+        inset: 0;
+        background: linear-gradient(145deg, #df3030, #9f1b1b);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        transition: opacity 0.6s ease, visibility 0.6s ease;
+      }
+
+      .loading-overlay.hidden {
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      .hourglass-container {
+        position: relative;
+        width: 80px;
+        height: 120px;
+        margin-bottom: 30px;
+      }
+
+      .hourglass {
+        width: 80px;
+        height: 120px;
+        animation: hourglassRotate 2.4s ease-in-out infinite;
+        transform-origin: center center;
+      }
+
+      .hourglass-top,
+      .hourglass-bottom {
+        position: absolute;
+        left: 50%;
+        width: 60px;
+        height: 50px;
+        transform: translateX(-50%);
+      }
+
+      .hourglass-top {
+        top: 0;
+        border-left: 3px solid #fff;
+        border-right: 3px solid #fff;
+        border-top: 3px solid #fff;
+        border-radius: 8px 8px 0 0;
+        clip-path: polygon(0 0, 100% 0, 55% 100%, 45% 100%);
+        background: rgba(255, 255, 255, 0.15);
+        overflow: hidden;
+      }
+
+      .hourglass-bottom {
+        bottom: 0;
+        border-left: 3px solid #fff;
+        border-right: 3px solid #fff;
+        border-bottom: 3px solid #fff;
+        border-radius: 0 0 8px 8px;
+        clip-path: polygon(45% 0, 55% 0, 100% 100%, 0 100%);
+        background: rgba(255, 255, 255, 0.15);
+        overflow: hidden;
+      }
+
+      /* SVG Hourglass */
+      .hourglass-svg {
+        width: 90px;
+        height: 130px;
+        animation: hourglassRotate 2.4s ease-in-out infinite;
+        filter: drop-shadow(0 8px 20px rgba(0,0,0,0.3));
+      }
+
+      @keyframes hourglassRotate {
+        0% { transform: rotate(0deg); }
+        40% { transform: rotate(0deg); }
+        50% { transform: rotate(180deg); }
+        90% { transform: rotate(180deg); }
+        100% { transform: rotate(360deg); }
+      }
+
+      .sand-top {
+        animation: sandTop 2.4s ease-in-out infinite;
+      }
+
+      @keyframes sandTop {
+        0% { transform: scaleY(1); transform-origin: top; }
+        50% { transform: scaleY(0); transform-origin: top; }
+        50.1% { transform: scaleY(0); transform-origin: top; }
+        100% { transform: scaleY(1); transform-origin: top; }
+      }
+
+      .sand-bottom {
+        animation: sandBottom 2.4s ease-in-out infinite;
+      }
+
+      @keyframes sandBottom {
+        0% { transform: scaleY(0); transform-origin: bottom; }
+        50% { transform: scaleY(1); transform-origin: bottom; }
+        50.1% { transform: scaleY(1); transform-origin: bottom; }
+        100% { transform: scaleY(0); transform-origin: bottom; }
+      }
+
+      .sand-stream {
+        animation: sandStream 2.4s ease-in-out infinite;
+      }
+
+      @keyframes sandStream {
+        0% { opacity: 1; }
+        45% { opacity: 1; }
+        50% { opacity: 0; }
+        95% { opacity: 0; }
+        100% { opacity: 1; }
+      }
+
+      .loading-text {
+        color: #fff;
+        font-family: "Tahoma", "Segoe UI", sans-serif;
+        font-size: 22px;
+        font-weight: 700;
+        margin-bottom: 12px;
+        text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      }
+
+      .loading-subtext {
+        color: rgba(255,255,255,0.75);
+        font-family: "Tahoma", "Segoe UI", sans-serif;
+        font-size: 14px;
+        margin-bottom: 20px;
+      }
+
+      .loading-dots {
+        display: flex;
+        gap: 8px;
+      }
+
+      .loading-dots span {
+        width: 10px;
+        height: 10px;
+        background: rgba(255,255,255,0.7);
+        border-radius: 50%;
+        animation: dotBounce 1.4s ease-in-out infinite;
+      }
+
+      .loading-dots span:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+
+      .loading-dots span:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+
+      @keyframes dotBounce {
+        0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+        40% { transform: scale(1.2); opacity: 1; }
+      }
+
+      .loading-progress {
+        width: 200px;
+        height: 4px;
+        background: rgba(255,255,255,0.2);
+        border-radius: 4px;
+        overflow: hidden;
+        margin-top: 20px;
+      }
+
+      .loading-progress-bar {
+        width: 0%;
+        height: 100%;
+        background: #fff;
+        border-radius: 4px;
+        animation: progressAnim 2s ease-in-out forwards;
+      }
+
+      @keyframes progressAnim {
+        0% { width: 0%; }
+        30% { width: 40%; }
+        60% { width: 70%; }
+        90% { width: 90%; }
+        100% { width: 100%; }
+      }
+
+      /* ===== END LOADING SCREEN ===== */
+
       :root {
         --red-900: #7f1010;
         --red-700: #b51f1f;
@@ -28,192 +209,6 @@
           radial-gradient(circle at 10% 10%, #ffd9d9 0, transparent 35%),
           radial-gradient(circle at 85% 5%, #ffc5c5 0, transparent 28%),
           var(--bg);
-      }
-
-      body.loading {
-        overflow: hidden;
-      }
-
-      .page-loader {
-        position: fixed;
-        inset: 0;
-        z-index: 100;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: linear-gradient(145deg, rgba(181, 31, 31, 0.96), rgba(127, 16, 16, 0.98));
-        color: #fff;
-        transition: opacity 0.45s ease, visibility 0.45s ease;
-      }
-
-      .page-loader.hidden {
-        opacity: 0;
-        visibility: hidden;
-        pointer-events: none;
-      }
-
-      .loader-inner {
-        text-align: center;
-        padding: 24px;
-      }
-
-      .hourglass {
-        position: relative;
-        width: 58px;
-        height: 88px;
-        margin: 0 auto 18px;
-        border-left: 4px solid rgba(255, 255, 255, 0.92);
-        border-right: 4px solid rgba(255, 255, 255, 0.92);
-        border-radius: 8px;
-        animation: flipHourglass 1.8s ease-in-out infinite;
-      }
-
-      .hourglass::before,
-      .hourglass::after {
-        content: "";
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        border-left: 21px solid transparent;
-        border-right: 21px solid transparent;
-      }
-
-      .hourglass::before {
-        top: 8px;
-        border-bottom: 28px solid #fff2c7;
-        animation: sandTop 1.8s linear infinite;
-      }
-
-      .hourglass::after {
-        bottom: 8px;
-        border-top: 28px solid #ffd4d4;
-        animation: sandBottom 1.8s linear infinite;
-      }
-
-      .hourglass-neck {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 6px;
-        height: 14px;
-        background: #fff8df;
-        transform: translate(-50%, -50%);
-        border-radius: 999px;
-        animation: sandFlow 1.8s linear infinite;
-      }
-
-      .hourglass-line {
-        position: absolute;
-        right: -6px;
-        left: -6px;
-        height: 4px;
-        background: rgba(255, 255, 255, 0.92);
-        border-radius: 999px;
-      }
-
-      .hourglass-line.top {
-        top: 0;
-      }
-
-      .hourglass-line.middle {
-        top: 50%;
-        transform: translateY(-50%);
-      }
-
-      .hourglass-line.bottom {
-        bottom: 0;
-      }
-
-      .loader-text {
-        font-size: 20px;
-        font-weight: 700;
-        margin-bottom: 6px;
-      }
-
-      .loader-subtext {
-        margin: 0;
-        font-size: 14px;
-        opacity: 0.88;
-      }
-
-      @keyframes flipHourglass {
-        0%,
-        44% {
-          transform: rotate(0deg);
-        }
-
-        50%,
-        94% {
-          transform: rotate(180deg);
-        }
-
-        100% {
-          transform: rotate(360deg);
-        }
-      }
-
-      @keyframes sandTop {
-        0% {
-          opacity: 1;
-          transform: translateX(-50%) scaleY(1);
-        }
-
-        45% {
-          opacity: 0.25;
-          transform: translateX(-50%) scaleY(0.2);
-        }
-
-        50% {
-          opacity: 0;
-          transform: translateX(-50%) scaleY(0);
-        }
-
-        100% {
-          opacity: 1;
-          transform: translateX(-50%) scaleY(1);
-        }
-      }
-
-      @keyframes sandBottom {
-        0% {
-          opacity: 0.2;
-          transform: translateX(-50%) scaleY(0.2);
-        }
-
-        45% {
-          opacity: 1;
-          transform: translateX(-50%) scaleY(1);
-        }
-
-        50% {
-          opacity: 0;
-          transform: translateX(-50%) scaleY(0);
-        }
-
-        100% {
-          opacity: 0.2;
-          transform: translateX(-50%) scaleY(0.2);
-        }
-      }
-
-      @keyframes sandFlow {
-        0%,
-        12% {
-          opacity: 0;
-          transform: translate(-50%, -50%) scaleY(0);
-        }
-
-        18%,
-        44% {
-          opacity: 1;
-          transform: translate(-50%, -50%) scaleY(1);
-        }
-
-        50%,
-        100% {
-          opacity: 0;
-          transform: translate(-50%, -50%) scaleY(0);
-        }
       }
 
       .wrap {
@@ -313,6 +308,100 @@
         display: block;
         margin-top: 6px;
         color: #a33131;
+      }
+
+      /* Banner with Image */
+      .banner-with-image {
+        margin-top: 14px;
+        border-radius: 16px;
+        overflow: hidden;
+        position: relative;
+        box-shadow: 0 8px 24px rgba(181, 31, 31, 0.2);
+        border: 2px solid #efb3b3;
+      }
+
+      .banner-img-wrapper {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+      }
+
+      .banner-img-wrapper img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.4s ease;
+      }
+
+      .banner-link:hover .banner-img-wrapper img {
+        transform: scale(1.05);
+      }
+
+      .banner-img-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(127, 16, 16, 0.85) 0%, rgba(127, 16, 16, 0.3) 50%, transparent 100%);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 16px 20px;
+        color: #fff;
+      }
+
+      .banner-img-overlay .banner-title {
+        font-size: 20px;
+        font-weight: 800;
+        margin-bottom: 4px;
+        text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      }
+
+      .banner-img-overlay .banner-subtitle {
+        font-size: 13px;
+        opacity: 0.9;
+        font-weight: 600;
+      }
+
+      .banner-img-overlay .banner-badge {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        background: #b51f1f;
+        color: #fff;
+        padding: 6px 14px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 700;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        animation: badgePulse 2s ease-in-out infinite;
+      }
+
+      @keyframes badgePulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.08); }
+      }
+
+      .banner-badge-green {
+        background: #128c7e !important;
+      }
+
+      @media (max-width: 640px) {
+        .banner-img-wrapper img {
+          height: 140px;
+        }
+
+        .banner-img-overlay .banner-title {
+          font-size: 16px;
+        }
+
+        .banner-img-overlay .banner-subtitle {
+          font-size: 11px;
+        }
+
+        .banner-img-overlay .banner-badge {
+          font-size: 10px;
+          padding: 4px 10px;
+        }
       }
 
       .floating-tools {
@@ -789,14 +878,6 @@
           width: min(1150px, 96%);
         }
 
-        .loader-text {
-          font-size: 18px;
-        }
-
-        .loader-subtext {
-          font-size: 13px;
-        }
-
         .hero-top {
           gap: 12px;
         }
@@ -938,19 +1019,47 @@
       }
     </style>
   </head>
-  <body class="loading">
-    <div id="pageLoader" class="page-loader" aria-live="polite" aria-busy="true">
-      <div class="loader-inner">
-        <div class="hourglass" aria-hidden="true">
-          <span class="hourglass-line top"></span>
-          <span class="hourglass-line middle"></span>
-          <span class="hourglass-line bottom"></span>
-          <span class="hourglass-neck"></span>
-        </div>
-        <div class="loader-text">جاري تحميل الصفحة</div>
-        <p class="loader-subtext">انتظر قليلا حتى يتم تجهيز المنتجات والعروض.</p>
+  <body>
+
+    <!-- ===== LOADING SCREEN ===== -->
+    <div id="loadingOverlay" class="loading-overlay">
+      <svg class="hourglass-svg" viewBox="0 0 100 140" xmlns="http://www.w3.org/2000/svg">
+        <!-- Frame -->
+        <rect x="15" y="2" width="70" height="6" rx="3" fill="white"/>
+        <rect x="15" y="132" width="70" height="6" rx="3" fill="white"/>
+        <line x1="20" y1="8" x2="30" y2="68" stroke="white" stroke-width="3" stroke-linecap="round"/>
+        <line x1="80" y1="8" x2="70" y2="68" stroke="white" stroke-width="3" stroke-linecap="round"/>
+        <line x1="20" y1="132" x2="30" y2="72" stroke="white" stroke-width="3" stroke-linecap="round"/>
+        <line x1="80" y1="132" x2="70" y2="72" stroke="white" stroke-width="3" stroke-linecap="round"/>
+
+        <!-- Sand top -->
+        <g class="sand-top">
+          <polygon points="32,18 68,18 52,62 48,62" fill="rgba(255,220,180,0.85)"/>
+        </g>
+
+        <!-- Sand stream -->
+        <g class="sand-stream">
+          <line x1="50" y1="62" x2="50" y2="78" stroke="rgba(255,220,180,0.85)" stroke-width="2"/>
+        </g>
+
+        <!-- Sand bottom -->
+        <g class="sand-bottom">
+          <polygon points="32,122 68,122 52,78 48,78" fill="rgba(255,220,180,0.85)"/>
+        </g>
+      </svg>
+
+      <div class="loading-text">اسواق تبارك</div>
+      <div class="loading-subtext">جاري تحميل المتجر...</div>
+      <div class="loading-dots">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="loading-progress">
+        <div class="loading-progress-bar"></div>
       </div>
     </div>
+    <!-- ===== END LOADING SCREEN ===== -->
 
     <div class="wrap">
       <header class="hero">
@@ -971,9 +1080,15 @@
       </header>
 
       <a class="banner-link" href="#productsSection" aria-label="الانتقال الى صفحة المنتجات والعروض">
-        <div class="banner">
-          بنر اعلاني اسفل الهيدر - اضغط هنا للانتقال الى صفحة العروض والمنتجات
-          <small>انتقل مباشرة لعرض كل السلع المتاحة</small>
+        <div class="banner-with-image">
+          <div class="banner-img-wrapper">
+            <img src="image/banner.jpg" alt="عروض اسواق تبارك" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1604719312566-8912e9227c6a?auto=format&fit=crop&w=1200&q=80';" />
+            <div class="banner-img-overlay">
+              <span class="banner-badge">🔥 عروض حصرية</span>
+              <div class="banner-title">عروض اسواق تبارك - وفّر أكتر!</div>
+              <div class="banner-subtitle">اضغط هنا للانتقال الى صفحة العروض والمنتجات 👇</div>
+            </div>
+          </div>
         </div>
       </a>
 
@@ -1006,9 +1121,15 @@
       </section>
 
       <a class="banner-link" href="https://wa.me/201030566078" target="_blank" rel="noopener" aria-label="الانتقال الى صفحة التواصل على واتساب">
-        <div class="banner">
-          بنر اعلاني اعلى الفوتر - اضغط للانتقال الى صفحة التواصل على واتساب
-          <small>للاستفسارات السريعة والعروض الخاصة</small>
+        <div class="banner-with-image">
+          <div class="banner-img-wrapper">
+            <img src="image/banner2.jpg" alt="بنر اعلاني - تواصل معنا على واتساب" onerror="this.src='https://images.unsplash.com/photo-1604719312566-8912e9227c6a?auto=format&fit=crop&w=1200&q=80'" />
+            <div class="banner-img-overlay">
+              <span class="banner-badge banner-badge-green">💬 تواصل معنا</span>
+              <div class="banner-title">تواصل معنا عبر واتساب</div>
+              <div class="banner-subtitle">للاستفسارات السريعة والعروض الخاصة - اضغط هنا</div>
+            </div>
+          </div>
         </div>
       </a>
 
@@ -1060,6 +1181,19 @@
     </div>
 
     <script>
+      // ===== LOADING SCREEN LOGIC =====
+      window.addEventListener('load', function() {
+        const overlay = document.getElementById('loadingOverlay');
+        // Give a minimum display time of 1.5s so the animation is visible
+        setTimeout(function() {
+          overlay.classList.add('hidden');
+          // Remove from DOM after transition
+          setTimeout(function() {
+            overlay.remove();
+          }, 600);
+        }, 1800);
+      });
+
       const WHATSAPP_NUMBER = "201030566078";
       const DELIVERY_FEE = 15;
       let isFriday = new Date().getDay() === 5;
@@ -1077,8 +1211,10 @@
       };
 
       const productSeed = [
+        // قسم البيض
         { name: "طبق بيض أبيض وزن 2 كجم", category: "قسم البيض", fridayPrice: 125, price: 135, stock: 30, image: "image/01.jpg" },
         { name: "طبق بيض أحمر وزن 2 كجم", category: "قسم البيض", fridayPrice: 135, price: 140, stock: 28, image: "image/02.jpg" },
+        // الأرز والمكرونة
         { name: "كيلو أرز وسط", category: "الأرز والمكرونة", fridayPrice: 22, price: 28, stock: 45, image: "image/05.jpg" },
         { name: "كيلو أرز عريض", category: "الأرز والمكرونة", fridayPrice: 27, price: 32, stock: 45, image: "image/06.jpg" },
         { name: "كيلو أرز بسمتي اقتصادي", category: "الأرز والمكرونة", fridayPrice: 45, price: 50, stock: 38, image: "image/75.png" },
@@ -1100,6 +1236,7 @@
         { name: "شيكارة مكرونة (أي نوع ما عدا الاسباجتي)", category: "الأرز والمكرونة", fridayPrice: 189, price: 220, stock: 16, image: "image/141.jpg" },
         { name: "شيكارة مكرونة الاسباجتي", category: "الأرز والمكرونة", fridayPrice: 225, price: 250, stock: 16, image: "image/17.jpg" },
         { name: "عرض 10 كيس مكرونة الملكة (مشكل)", category: "الأرز والمكرونة", fridayPrice: 138, price: 150, stock: 25, image: "image/19.jpg" },
+        // الزيوت والسمن
         { name: "عرض 2 زيت سهر (700 جرام)", category: "الزيوت والسمن", fridayPrice: 95, price: 110, stock: 30, image: "image/33.jpg" },
         { name: "2 زجاجة زيت سيلا (لتر صافي)", category: "الزيوت والسمن", fridayPrice: 129, price: 150, stock: 26, image: "image/123.jpg" },
         { name: "2 زجاجة زيت قلية او حلوة (لتر صافي)", category: "الزيوت والسمن", fridayPrice: 145, price: 160, stock: 24, image: "image/122.jpg" },
@@ -1117,6 +1254,7 @@
         { name: "علبة سمنة قوت القلوب", category: "الزيوت والسمن", fridayPrice: 100, price: 120, stock: 25, image: "image/92.png" },
         { name: "سمنة (كريستال/روابي/جنة) 2 كيلو", category: "الزيوت والسمن", fridayPrice: 155, price: 165, stock: 20, image: "image/25.jpg" },
         { name: "سمنة (كريستال/روابي/جنة) 11 كيلو", category: "الزيوت والسمن", fridayPrice: 1080, price: 1150, stock: 10, image: "image/129.jpg" },
+        // فطارك عندنا
         { name: "عرض 2 كيلو سكر (1000 جرام)", category: "فطارك عندنا", fridayPrice: 55, price: 60, stock: 40, image: "image/20.jpg" },
         { name: "باكت سكر 10 كجم", category: "فطارك عندنا", fridayPrice: 275, price: 300, stock: 16, image: "image/93.jpg" },
         { name: "عرض 2 كيلو دقيق سايب", category: "فطارك عندنا", fridayPrice: 35, price: 40, stock: 45, image: "image/21.jpg" },
@@ -1135,6 +1273,7 @@
         { name: "بلح رطب سكري", category: "فطارك عندنا", fridayPrice: 80, price: 90, stock: 26, image: "image/58.jpg" },
         { name: "مربى فيتراك 1 كجم", category: "فطارك عندنا", fridayPrice: 70, price: 80, stock: 24, image: "image/68.png" },
         { name: "شاي ليبتون 250 جم", category: "فطارك عندنا", fridayPrice: 58, price: 65, stock: 28, image: "image/72.png" },
+        // المجمدات والأسماك
         { name: "لانشون حلواني 250 جم", category: "المجمدات والأسماك", fridayPrice: 70, price: 80, stock: 22, image: "image/79.png" },
         { name: "لانشون اوريجينال 250 جم", category: "المجمدات والأسماك", fridayPrice: 27, price: 35, stock: 24, image: "image/78.png" },
         { name: "برجر المراعي عائلي", category: "المجمدات والأسماك", fridayPrice: 115, price: 125, stock: 20, image: "image/37.jpg" },
@@ -1153,6 +1292,7 @@
         { name: "استربس مزايا كيلو", category: "المجمدات والأسماك", fridayPrice: 185, price: 200, stock: 16, image: "image/144.jpg" },
         { name: "كيلو رنجة درجة أولى", category: "المجمدات والأسماك", fridayPrice: 115, price: 140, stock: 20, image: "image/40.jpg" },
         { name: "عرض 4 علبة تونة", category: "المجمدات والأسماك", fridayPrice: 95, price: 120, stock: 24, image: "image/41.jpg" },
+        // البقوليات والصوصات والعطارة
         { name: "كيلو عدس أصفر", category: "البقوليات والصوصات والعطارة", fridayPrice: 50, price: 60, stock: 30, image: "image/52.jpg" },
         { name: "كيلو عدس بجبة", category: "البقوليات والصوصات والعطارة", fridayPrice: 55, price: 60, stock: 30, image: "image/53.jpg" },
         { name: "كيلو فاصوليا", category: "البقوليات والصوصات والعطارة", fridayPrice: 55, price: 80, stock: 26, image: "image/54.jpg" },
@@ -1167,8 +1307,10 @@
         { name: "كيلو خل مركز سايب", category: "البقوليات والصوصات والعطارة", fridayPrice: 30, price: 40, stock: 24, image: "image/60.jpg" },
         { name: "كيلو مخلل بوليف", category: "البقوليات والصوصات والعطارة", fridayPrice: 20, price: 30, stock: 28, image: "image/45.jpg" },
         { name: "2 كيس بقسماط ريتش باك 500 جرام", category: "البقوليات والصوصات والعطارة", fridayPrice: 50, price: 60, stock: 22, image: "image/113.jpg" },
+        // المشروبات الشتوية
         { name: "عرض 2 سحلب علاء (250 جرام)", category: "المشروبات الشتوية", fridayPrice: 50, price: 60, stock: 24, image: "image/47.jpg" },
         { name: "سحلب علاء الدين (400 جرام)", category: "المشروبات الشتوية", fridayPrice: 45, price: 50, stock: 24, image: "image/61.jpg" },
+        // المنظفات والمعطرات
         { name: "أوكسي 2.5 كيلو أوتوماتيك", category: "المنظفات والمعطرات", fridayPrice: 180, price: 190, stock: 20, image: "image/63.jpg" },
         { name: "أوكسي 5 كيلو أوتوماتيك", category: "المنظفات والمعطرات", fridayPrice: 305, price: 320, stock: 15, image: "image/64.jpg" },
         { name: "أوكسي 9 كيلو أوتوماتيك", category: "المنظفات والمعطرات", fridayPrice: 465, price: 480, stock: 12, image: "image/65.jpg" },
@@ -1183,7 +1325,6 @@
       }));
 
       const cart = {};
-      const pageLoader = document.getElementById("pageLoader");
       const productsBox = document.getElementById("products");
       const cartItemsBox = document.getElementById("cartItems");
       const cartSummaryBox = document.getElementById("cartSummary");
@@ -1204,13 +1345,8 @@
       const offerCountdown = document.getElementById("offerCountdown");
       const categoriesRow = document.getElementById("categoriesRow");
       const searchInput = document.getElementById("searchInput");
-      const fridayBadge = document.getElementById("fridayBadge");
 
-      function hideLoader() {
-        pageLoader.classList.add("hidden");
-        document.body.classList.remove("loading");
-        pageLoader.setAttribute("aria-busy", "false");
-      }
+      const fridayBadge = document.getElementById("fridayBadge");
 
       function normalizeArabicText(value) {
         return value.toLowerCase().trim();
@@ -1551,11 +1687,6 @@
       renderCategories();
       renderProducts();
       renderCart();
-
-      // تبقى شاشة التحميل ظاهرة حتى اكتمال تحميل الصور وباقي عناصر الصفحة.
-      window.addEventListener("load", () => {
-        setTimeout(hideLoader, 250);
-      });
     </script>
   </body>
 </html>
