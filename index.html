@@ -9,7 +9,9 @@
       .loading-overlay {
         position: fixed;
         inset: 0;
-        background: linear-gradient(145deg, #1a0505, #3d0c0c, #5a1212);
+        background: linear-gradient(160deg, #0d0000, #2a0808, #4a1010, #2a0808);
+        background-size: 400% 400%;
+        animation: bgShift 4s ease infinite;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -19,19 +21,9 @@
         overflow: hidden;
       }
 
-      .loading-overlay::before {
-        content: '';
-        position: absolute;
-        width: 300px;
-        height: 300px;
-        border-radius: 50%;
-        background: radial-gradient(circle, rgba(220,50,50,0.25) 0%, transparent 70%);
-        animation: bgPulse 3s ease-in-out infinite;
-      }
-
-      @keyframes bgPulse {
-        0%, 100% { transform: scale(1); opacity: 0.5; }
-        50% { transform: scale(1.4); opacity: 1; }
+      @keyframes bgShift {
+        0%, 100% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
       }
 
       .loading-overlay.hidden {
@@ -39,235 +31,291 @@
         visibility: hidden;
       }
 
-      /* Floating particles */
-      .loading-particles {
+      /* Stars / particles */
+      .loading-stars {
         position: absolute;
         inset: 0;
         overflow: hidden;
         pointer-events: none;
       }
 
-      .particle {
+      .star {
         position: absolute;
-        width: 4px;
-        height: 4px;
-        background: rgba(255, 200, 150, 0.4);
+        width: 2px;
+        height: 2px;
+        background: #fff;
         border-radius: 50%;
-        animation: floatParticle linear infinite;
+        animation: twinkle linear infinite;
       }
 
-      .particle:nth-child(1) { left: 10%; animation-duration: 6s; animation-delay: 0s; width: 3px; height: 3px; }
-      .particle:nth-child(2) { left: 25%; animation-duration: 8s; animation-delay: 1s; width: 5px; height: 5px; }
-      .particle:nth-child(3) { left: 40%; animation-duration: 5s; animation-delay: 0.5s; }
-      .particle:nth-child(4) { left: 55%; animation-duration: 7s; animation-delay: 2s; width: 6px; height: 6px; }
-      .particle:nth-child(5) { left: 70%; animation-duration: 9s; animation-delay: 1.5s; width: 3px; height: 3px; }
-      .particle:nth-child(6) { left: 85%; animation-duration: 6.5s; animation-delay: 0.8s; }
-      .particle:nth-child(7) { left: 15%; animation-duration: 7.5s; animation-delay: 3s; width: 5px; height: 5px; }
-      .particle:nth-child(8) { left: 60%; animation-duration: 5.5s; animation-delay: 2.5s; width: 3px; height: 3px; }
+      .star:nth-child(1) { top: 8%; left: 12%; animation-duration: 3s; width: 3px; height: 3px; }
+      .star:nth-child(2) { top: 15%; left: 45%; animation-duration: 2.5s; animation-delay: 0.5s; }
+      .star:nth-child(3) { top: 25%; left: 78%; animation-duration: 4s; animation-delay: 1s; width: 3px; height: 3px; }
+      .star:nth-child(4) { top: 40%; left: 20%; animation-duration: 3.5s; animation-delay: 0.3s; }
+      .star:nth-child(5) { top: 55%; left: 65%; animation-duration: 2.8s; animation-delay: 1.2s; width: 3px; height: 3px; }
+      .star:nth-child(6) { top: 70%; left: 35%; animation-duration: 3.2s; animation-delay: 0.7s; }
+      .star:nth-child(7) { top: 80%; left: 80%; animation-duration: 2.6s; animation-delay: 0.2s; }
+      .star:nth-child(8) { top: 90%; left: 50%; animation-duration: 3.8s; animation-delay: 1.5s; width: 3px; height: 3px; }
+      .star:nth-child(9) { top: 35%; left: 90%; animation-duration: 2.4s; animation-delay: 0.9s; }
+      .star:nth-child(10) { top: 60%; left: 8%; animation-duration: 3.6s; animation-delay: 0.4s; }
 
-      @keyframes floatParticle {
-        0% { bottom: -10px; opacity: 0; }
-        10% { opacity: 0.6; }
-        90% { opacity: 0.6; }
-        100% { bottom: 110%; opacity: 0; }
+      @keyframes twinkle {
+        0%, 100% { opacity: 0.1; transform: scale(0.5); }
+        50% { opacity: 1; transform: scale(1.5); }
       }
 
-      /* 3D Hourglass */
-      .hourglass-wrapper {
+      /* Hourglass Container */
+      .hourglass-scene {
+        perspective: 800px;
+        margin-bottom: 30px;
+      }
+
+      .hourglass-container {
         position: relative;
-        margin-bottom: 40px;
-        animation: hourglassFloat 3s ease-in-out infinite;
+        width: 100px;
+        height: 160px;
+        animation: hgFloat 3s ease-in-out infinite;
       }
 
-      @keyframes hourglassFloat {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-10px); }
+      @keyframes hgFloat {
+        0%, 100% { transform: translateY(0) rotateY(0deg); }
+        25% { transform: translateY(-8px) rotateY(5deg); }
+        50% { transform: translateY(-12px) rotateY(0deg); }
+        75% { transform: translateY(-8px) rotateY(-5deg); }
       }
 
-      .hourglass-3d {
-        width: 120px;
-        height: 180px;
-        position: relative;
-        animation: hourglassRotate 3.5s ease-in-out infinite;
-        filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5));
-      }
-
-      @keyframes hourglassRotate {
-        0% { transform: rotate(0deg); }
-        35% { transform: rotate(0deg); }
-        50% { transform: rotate(180deg); }
-        85% { transform: rotate(180deg); }
-        100% { transform: rotate(360deg); }
-      }
-
-      /* Glow ring around hourglass */
-      .hourglass-glow {
+      /* Outer glow */
+      .hg-glow {
         position: absolute;
         top: 50%;
         left: 50%;
-        width: 140px;
-        height: 140px;
+        width: 160px;
+        height: 160px;
         transform: translate(-50%, -50%);
         border-radius: 50%;
-        border: 2px solid rgba(255, 180, 100, 0.15);
-        animation: glowRing 2s ease-in-out infinite;
+        background: radial-gradient(circle, rgba(255,120,50,0.15) 0%, transparent 70%);
+        animation: glowPulse 2s ease-in-out infinite;
       }
 
-      .hourglass-glow::after {
-        content: '';
-        position: absolute;
-        inset: -10px;
-        border-radius: 50%;
-        border: 1px solid rgba(255, 180, 100, 0.08);
-        animation: glowRing 2s ease-in-out infinite reverse;
+      @keyframes glowPulse {
+        0%, 100% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.5; }
+        50% { transform: translate(-50%, -50%) scale(1.3); opacity: 1; }
       }
 
-      @keyframes glowRing {
-        0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
-        50% { transform: translate(-50%, -50%) scale(1.15); opacity: 0.8; }
+      /* The hourglass flip */
+      .hourglass-flip {
+        width: 100%;
+        height: 100%;
+        animation: flipHourglass 4s ease-in-out infinite;
+        filter: drop-shadow(0 10px 30px rgba(255,100,50,0.3));
       }
 
-      /* Sand animations */
-      .sand-top-fill {
-        animation: sandTopAnim 3.5s ease-in-out infinite;
+      @keyframes flipHourglass {
+        0%, 40% { transform: rotate(0deg); }
+        50%, 90% { transform: rotate(180deg); }
+        100% { transform: rotate(360deg); }
+      }
+
+      /* SVG Sand animations */
+      .sand-top {
+        animation: sandTopDrain 4s ease-in-out infinite;
         transform-origin: center top;
       }
 
-      @keyframes sandTopAnim {
+      @keyframes sandTopDrain {
         0% { opacity: 1; transform: scaleY(1); }
-        35% { opacity: 0.3; transform: scaleY(0.1); }
-        50% { opacity: 0; transform: scaleY(0); }
-        50.1% { opacity: 1; transform: scaleY(1); }
-        85% { opacity: 0.3; transform: scaleY(0.1); }
-        100% { opacity: 0; transform: scaleY(0); }
-      }
-
-      .sand-bottom-fill {
-        animation: sandBottomAnim 3.5s ease-in-out infinite;
-        transform-origin: center bottom;
-      }
-
-      @keyframes sandBottomAnim {
-        0% { opacity: 0; transform: scaleY(0); }
-        35% { opacity: 1; transform: scaleY(1); }
+        38% { opacity: 0.2; transform: scaleY(0.05); }
         50% { opacity: 1; transform: scaleY(1); }
-        50.1% { opacity: 0; transform: scaleY(0); }
-        85% { opacity: 1; transform: scaleY(1); }
+        88% { opacity: 0.2; transform: scaleY(0.05); }
         100% { opacity: 1; transform: scaleY(1); }
       }
 
-      .sand-stream-line {
-        animation: sandStreamAnim 3.5s ease-in-out infinite;
+      .sand-bottom {
+        animation: sandBottomFill 4s ease-in-out infinite;
+        transform-origin: center bottom;
       }
 
-      @keyframes sandStreamAnim {
-        0% { opacity: 1; }
-        33% { opacity: 1; }
-        35% { opacity: 0; }
-        50% { opacity: 0; }
-        50.1% { opacity: 1; }
-        83% { opacity: 1; }
-        85% { opacity: 0; }
+      @keyframes sandBottomFill {
+        0% { opacity: 0.1; transform: scaleY(0.05); }
+        38% { opacity: 1; transform: scaleY(1); }
+        50% { opacity: 0.1; transform: scaleY(0.05); }
+        88% { opacity: 1; transform: scaleY(1); }
+        100% { opacity: 0.1; transform: scaleY(0.05); }
+      }
+
+      .sand-stream {
+        animation: streamFlow 4s ease-in-out infinite;
+      }
+
+      @keyframes streamFlow {
+        0%, 2% { opacity: 0; }
+        5% { opacity: 1; }
+        36% { opacity: 1; }
+        40% { opacity: 0; }
+        50%, 52% { opacity: 0; }
+        55% { opacity: 1; }
+        86% { opacity: 1; }
+        90% { opacity: 0; }
         100% { opacity: 0; }
       }
 
-      .sand-drip {
-        animation: sandDripAnim 0.8s ease-in infinite;
-      }
-
-      @keyframes sandDripAnim {
-        0% { transform: translateY(0); opacity: 1; }
-        100% { transform: translateY(8px); opacity: 0; }
-      }
-
-      /* Logo in loading */
-      .loading-logo {
-        width: 70px;
-        height: 70px;
+      /* Sand particles falling */
+      .sand-particle {
+        position: absolute;
+        width: 3px;
+        height: 3px;
+        background: #e8a060;
         border-radius: 50%;
-        border: 3px solid rgba(255,255,255,0.3);
+        animation: fallParticle 1s linear infinite;
+      }
+
+      .sand-particle:nth-child(1) { left: 46px; animation-delay: 0s; }
+      .sand-particle:nth-child(2) { left: 50px; animation-delay: 0.3s; }
+      .sand-particle:nth-child(3) { left: 48px; animation-delay: 0.6s; width: 2px; height: 2px; }
+
+      @keyframes fallParticle {
+        0% { top: 72px; opacity: 1; }
+        100% { top: 95px; opacity: 0; }
+      }
+
+      /* Circular orbiting rings */
+      .orbit-ring {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        border: 1px solid rgba(255,150,80,0.1);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      .orbit-ring:nth-child(1) {
+        width: 130px;
+        height: 130px;
+        animation: orbitSpin 8s linear infinite;
+      }
+
+      .orbit-ring:nth-child(2) {
+        width: 170px;
+        height: 170px;
+        animation: orbitSpin 12s linear infinite reverse;
+        border-style: dashed;
+      }
+
+      .orbit-ring::after {
+        content: '';
+        position: absolute;
+        top: -3px;
+        left: 50%;
+        width: 6px;
+        height: 6px;
+        background: rgba(255,180,100,0.6);
+        border-radius: 50%;
+        box-shadow: 0 0 8px rgba(255,150,80,0.5);
+      }
+
+      @keyframes orbitSpin {
+        from { transform: translate(-50%, -50%) rotate(0deg); }
+        to { transform: translate(-50%, -50%) rotate(360deg); }
+      }
+
+      /* Logo */
+      .loading-logo {
+        width: 65px;
+        height: 65px;
+        border-radius: 50%;
+        border: 2px solid rgba(255,255,255,0.25);
         object-fit: cover;
-        margin-bottom: 16px;
-        animation: logoFade 2s ease-in-out infinite;
-        box-shadow: 0 0 20px rgba(255,150,100,0.3);
+        margin-bottom: 14px;
+        animation: logoPulse 2.5s ease-in-out infinite;
+        box-shadow: 0 0 20px rgba(255,100,50,0.2);
       }
 
-      @keyframes logoFade {
-        0%, 100% { opacity: 0.7; transform: scale(1); }
-        50% { opacity: 1; transform: scale(1.05); }
+      @keyframes logoPulse {
+        0%, 100% { opacity: 0.6; transform: scale(1); box-shadow: 0 0 20px rgba(255,100,50,0.2); }
+        50% { opacity: 1; transform: scale(1.06); box-shadow: 0 0 30px rgba(255,100,50,0.4); }
       }
 
-      .loading-text {
+      .loading-title {
         color: #fff;
         font-family: "Tahoma", "Segoe UI", sans-serif;
-        font-size: 26px;
-        font-weight: 700;
-        margin-bottom: 8px;
-        text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+        font-size: 28px;
+        font-weight: 800;
+        margin-bottom: 6px;
+        text-shadow: 0 2px 15px rgba(255,80,50,0.3);
+        letter-spacing: 2px;
+      }
+
+      .loading-subtitle {
+        color: rgba(255,200,170,0.65);
+        font-family: "Tahoma", "Segoe UI", sans-serif;
+        font-size: 13px;
+        margin-bottom: 28px;
         letter-spacing: 1px;
       }
 
-      .loading-subtext {
-        color: rgba(255,255,255,0.6);
-        font-family: "Tahoma", "Segoe UI", sans-serif;
-        font-size: 14px;
-        margin-bottom: 24px;
-        letter-spacing: 0.5px;
-      }
-
+      /* Animated dots */
       .loading-dots {
         display: flex;
-        gap: 10px;
-        margin-bottom: 6px;
+        gap: 8px;
+        margin-bottom: 20px;
       }
 
       .loading-dots span {
-        width: 8px;
-        height: 8px;
-        background: rgba(255,200,150,0.8);
+        width: 10px;
+        height: 10px;
         border-radius: 50%;
-        animation: dotPulse 1.4s ease-in-out infinite;
-        box-shadow: 0 0 8px rgba(255,150,80,0.4);
+        animation: dotBounce 1.4s ease-in-out infinite;
+      }
+
+      .loading-dots span:nth-child(1) {
+        background: #ff6b35;
+        animation-delay: 0s;
       }
 
       .loading-dots span:nth-child(2) {
-        animation-delay: 0.2s;
+        background: #ff9a5c;
+        animation-delay: 0.15s;
       }
 
       .loading-dots span:nth-child(3) {
-        animation-delay: 0.4s;
+        background: #ffcba4;
+        animation-delay: 0.3s;
       }
 
-      @keyframes dotPulse {
-        0%, 80%, 100% { transform: scale(0.5); opacity: 0.3; }
-        40% { transform: scale(1.3); opacity: 1; }
+      @keyframes dotBounce {
+        0%, 80%, 100% { transform: scale(0.4) translateY(0); opacity: 0.3; }
+        40% { transform: scale(1.2) translateY(-12px); opacity: 1; }
+      }
+
+      /* Progress bar */
+      .loading-progress-wrap {
+        width: 240px;
+        position: relative;
       }
 
       .loading-progress {
-        width: 220px;
-        height: 3px;
-        background: rgba(255,255,255,0.1);
-        border-radius: 4px;
+        width: 100%;
+        height: 4px;
+        background: rgba(255,255,255,0.08);
+        border-radius: 10px;
         overflow: hidden;
-        margin-top: 24px;
-        position: relative;
       }
 
       .loading-progress-bar {
         width: 0%;
         height: 100%;
-        background: linear-gradient(90deg, #ff9a5c, #fff, #ff9a5c);
+        background: linear-gradient(90deg, #ff6b35, #ffb088, #ff6b35);
         background-size: 200% 100%;
-        border-radius: 4px;
-        animation: progressAnim 2.2s ease-in-out forwards, progressShine 1.5s linear infinite;
+        border-radius: 10px;
+        animation: progressFill 2s ease-in-out forwards, progressShine 1s linear infinite;
       }
 
-      @keyframes progressAnim {
+      @keyframes progressFill {
         0% { width: 0%; }
-        20% { width: 25%; }
-        50% { width: 55%; }
-        75% { width: 80%; }
-        90% { width: 92%; }
+        15% { width: 20%; }
+        40% { width: 50%; }
+        65% { width: 75%; }
+        85% { width: 90%; }
         100% { width: 100%; }
       }
 
@@ -277,11 +325,12 @@
       }
 
       .loading-percent {
-        color: rgba(255,255,255,0.5);
+        color: rgba(255,200,170,0.5);
         font-family: "Tahoma", sans-serif;
-        font-size: 12px;
+        font-size: 11px;
         margin-top: 8px;
-        font-weight: 600;
+        font-weight: 700;
+        text-align: center;
       }
 
       /* ===== END LOADING SCREEN ===== */
@@ -382,15 +431,75 @@
         background: rgba(255, 255, 255, 0.28);
       }
 
-      .banner {
+      /* Banner Image Style */
+      .banner-img-wrap {
         margin-top: 14px;
-        border: 2px dashed #ef9999;
-        border-radius: 14px;
-        background: #fff0f0;
-        padding: 14px;
+        border-radius: 16px;
+        overflow: hidden;
+        position: relative;
+        box-shadow: 0 8px 24px rgba(150, 30, 30, 0.2);
+        border: 2px solid #efb3b3;
+      }
+
+      .banner-img-wrap img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.4s ease;
+      }
+
+      .banner-img-wrap:hover img {
+        transform: scale(1.05);
+      }
+
+      .banner-img-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(100, 10, 10, 0.85) 0%, rgba(100, 10, 10, 0.3) 50%, transparent 100%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+        padding: 18px;
         text-align: center;
-        color: #8f1a1a;
+      }
+
+      .banner-img-overlay h3 {
+        color: #fff;
+        font-size: 20px;
+        margin: 0 0 4px;
+        text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+      }
+
+      .banner-img-overlay p {
+        color: rgba(255,255,255,0.8);
+        font-size: 13px;
+        margin: 0;
+      }
+
+      .banner-badge {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        background: #b51f1f;
+        color: #fff;
+        padding: 6px 14px;
+        border-radius: 999px;
+        font-size: 12px;
         font-weight: 700;
+        animation: badgePulse 2s ease-in-out infinite;
+        box-shadow: 0 4px 12px rgba(181, 31, 31, 0.4);
+      }
+
+      .banner-badge.green {
+        background: #138a4a;
+        box-shadow: 0 4px 12px rgba(19, 138, 74, 0.4);
+      }
+
+      @keyframes badgePulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.06); }
       }
 
       .banner-link {
@@ -403,104 +512,21 @@
         transform: translateY(-2px);
       }
 
+      .banner {
+        margin-top: 14px;
+        border: 2px dashed #ef9999;
+        border-radius: 14px;
+        background: #fff0f0;
+        padding: 14px;
+        text-align: center;
+        color: #8f1a1a;
+        font-weight: 700;
+      }
+
       .banner small {
         display: block;
         margin-top: 6px;
         color: #a33131;
-      }
-
-      /* Banner with Image */
-      .banner-with-image {
-        margin-top: 14px;
-        border-radius: 16px;
-        overflow: hidden;
-        position: relative;
-        box-shadow: 0 8px 24px rgba(181, 31, 31, 0.2);
-        border: 2px solid #efb3b3;
-      }
-
-      .banner-img-wrapper {
-        position: relative;
-        width: 100%;
-        overflow: hidden;
-      }
-
-      .banner-img-wrapper img {
-        width: 100%;
-        height: 200px;
-        object-fit: cover;
-        display: block;
-        transition: transform 0.4s ease;
-      }
-
-      .banner-link:hover .banner-img-wrapper img {
-        transform: scale(1.05);
-      }
-
-      .banner-img-overlay {
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(to top, rgba(127, 16, 16, 0.85) 0%, rgba(127, 16, 16, 0.3) 50%, transparent 100%);
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        padding: 16px 20px;
-        color: #fff;
-      }
-
-      .banner-img-overlay .banner-title {
-        font-size: 20px;
-        font-weight: 800;
-        margin-bottom: 4px;
-        text-shadow: 0 2px 8px rgba(0,0,0,0.3);
-      }
-
-      .banner-img-overlay .banner-subtitle {
-        font-size: 13px;
-        opacity: 0.9;
-        font-weight: 600;
-      }
-
-      .banner-img-overlay .banner-badge {
-        position: absolute;
-        top: 12px;
-        right: 12px;
-        background: #b51f1f;
-        color: #fff;
-        padding: 6px 14px;
-        border-radius: 999px;
-        font-size: 12px;
-        font-weight: 700;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        animation: badgePulse 2s ease-in-out infinite;
-      }
-
-      @keyframes badgePulse {
-        0%, 100% { transform: scale(1); }
-        50% { transform: scale(1.08); }
-      }
-
-      .banner-badge-green {
-        background: #128c7e !important;
-      }
-
-      @media (max-width: 640px) {
-        .banner-img-wrapper img {
-          height: 140px;
-        }
-
-        .banner-img-overlay .banner-title {
-          font-size: 16px;
-        }
-
-        .banner-img-overlay .banner-subtitle {
-          font-size: 11px;
-        }
-
-        .banner-img-overlay .banner-badge {
-          font-size: 10px;
-          padding: 4px 10px;
-        }
       }
 
       .floating-tools {
@@ -1105,6 +1131,27 @@
           height: 54px;
           font-size: 22px;
         }
+
+        .banner-img-wrap img {
+          height: 140px;
+        }
+
+        .banner-img-overlay h3 {
+          font-size: 16px;
+        }
+
+        .banner-img-overlay p {
+          font-size: 11px;
+        }
+
+        .loading-title {
+          font-size: 22px;
+        }
+
+        .hourglass-container {
+          width: 80px;
+          height: 130px;
+        }
       }
 
       @media (min-width: 641px) and (max-width: 1024px) {
@@ -1121,117 +1168,127 @@
   <body>
 
     <!-- ===== LOADING SCREEN ===== -->
-    <div id="loadingOverlay" class="loading-overlay">
-
-      <!-- Floating particles background -->
-      <div class="loading-particles">
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
+    <div id="loadingScreen" class="loading-overlay">
+      <!-- Stars -->
+      <div class="loading-stars">
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
       </div>
 
-      <!-- 3D Hourglass -->
-      <div class="hourglass-wrapper">
-        <div class="hourglass-glow"></div>
-        <svg class="hourglass-3d" viewBox="0 0 120 180" xmlns="http://www.w3.org/2000/svg">
-          <!-- Glass body gradient -->
-          <defs>
-            <linearGradient id="glassGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" style="stop-color:rgba(255,255,255,0.08)"/>
-              <stop offset="50%" style="stop-color:rgba(255,255,255,0.2)"/>
-              <stop offset="100%" style="stop-color:rgba(255,255,255,0.05)"/>
-            </linearGradient>
-            <linearGradient id="sandGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" style="stop-color:#ffcc80"/>
-              <stop offset="100%" style="stop-color:#e8a040"/>
-            </linearGradient>
-            <linearGradient id="goldBar" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" style="stop-color:#ffe0a0"/>
-              <stop offset="50%" style="stop-color:#d4a040"/>
-              <stop offset="100%" style="stop-color:#b8860b"/>
-            </linearGradient>
-            <filter id="sandGlow">
-              <feGaussianBlur stdDeviation="2" result="blur"/>
-              <feMerge>
-                <feMergeNode in="blur"/>
-                <feMergeNode in="SourceGraphic"/>
-              </feMerge>
-            </filter>
-          </defs>
+      <!-- Hourglass -->
+      <div class="hourglass-scene">
+        <div class="hourglass-container">
+          <!-- Glow -->
+          <div class="hg-glow"></div>
+          <!-- Orbit rings -->
+          <div class="orbit-ring"></div>
+          <div class="orbit-ring"></div>
+          <!-- Sand particles -->
+          <div class="sand-particle"></div>
+          <div class="sand-particle"></div>
+          <div class="sand-particle"></div>
 
-          <!-- Top bar (gold) -->
-          <rect x="18" y="4" width="84" height="10" rx="5" fill="url(#goldBar)" stroke="rgba(255,255,255,0.3)" stroke-width="0.5"/>
-          <rect x="24" y="6" width="72" height="2" rx="1" fill="rgba(255,255,255,0.25)"/>
+          <!-- SVG Hourglass -->
+          <div class="hourglass-flip">
+            <svg viewBox="0 0 100 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Glass frame - outer -->
+              <defs>
+                <linearGradient id="frameGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#d4a574"/>
+                  <stop offset="50%" stop-color="#f0d0a0"/>
+                  <stop offset="100%" stop-color="#c49660"/>
+                </linearGradient>
+                <linearGradient id="glassGrad" x1="0.5" y1="0" x2="0.5" y2="1">
+                  <stop offset="0%" stop-color="rgba(255,255,255,0.12)"/>
+                  <stop offset="100%" stop-color="rgba(255,255,255,0.03)"/>
+                </linearGradient>
+                <linearGradient id="sandGrad" x1="0.5" y1="0" x2="0.5" y2="1">
+                  <stop offset="0%" stop-color="#e8a050"/>
+                  <stop offset="100%" stop-color="#c07830"/>
+                </linearGradient>
+                <filter id="glow">
+                  <feGaussianBlur stdDeviation="2" result="blur"/>
+                  <feMerge>
+                    <feMergeNode in="blur"/>
+                    <feMergeNode in="SourceGraphic"/>
+                  </feMerge>
+                </filter>
+              </defs>
 
-          <!-- Bottom bar (gold) -->
-          <rect x="18" y="166" width="84" height="10" rx="5" fill="url(#goldBar)" stroke="rgba(255,255,255,0.3)" stroke-width="0.5"/>
-          <rect x="24" y="172" width="72" height="2" rx="1" fill="rgba(255,255,255,0.25)"/>
+              <!-- Top cap -->
+              <rect x="15" y="4" width="70" height="6" rx="3" fill="url(#frameGrad)" filter="url(#glow)"/>
+              <rect x="18" y="8" width="64" height="2" rx="1" fill="#b8884c" opacity="0.5"/>
 
-          <!-- Left glass wall -->
-          <path d="M28,14 Q22,14 22,20 L22,68 Q22,80 40,88 L40,92 Q22,100 22,112 L22,160 Q22,166 28,166" 
-                fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2.5" stroke-linecap="round"/>
+              <!-- Bottom cap -->
+              <rect x="15" y="150" width="70" height="6" rx="3" fill="url(#frameGrad)" filter="url(#glow)"/>
+              <rect x="18" y="150" width="64" height="2" rx="1" fill="#f0d8b0" opacity="0.5"/>
 
-          <!-- Right glass wall -->
-          <path d="M92,14 Q98,14 98,20 L98,68 Q98,80 80,88 L80,92 Q98,100 98,112 L98,160 Q98,166 92,166" 
-                fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2.5" stroke-linecap="round"/>
+              <!-- Left pillar -->
+              <rect x="18" y="10" width="4" height="140" rx="2" fill="url(#frameGrad)" opacity="0.8"/>
+              <!-- Right pillar -->
+              <rect x="78" y="10" width="4" height="140" rx="2" fill="url(#frameGrad)" opacity="0.8"/>
 
-          <!-- Glass fill top -->
-          <path d="M24,20 L24,68 Q24,78 42,87 L42,87 Q24,78 24,68 Z" fill="url(#glassGrad)" opacity="0.3"/>
-          <path d="M96,20 L96,68 Q96,78 78,87 L78,87 Q96,78 96,68 Z" fill="url(#glassGrad)" opacity="0.15"/>
+              <!-- Glass body - top bulb -->
+              <path d="M25 14 C25 14, 25 68, 50 78 C75 68, 75 14, 75 14" fill="url(#glassGrad)" stroke="rgba(255,220,180,0.25)" stroke-width="1"/>
 
-          <!-- Glass fill bottom -->
-          <path d="M24,160 L24,112 Q24,102 42,93 L42,93 Q24,102 24,112 Z" fill="url(#glassGrad)" opacity="0.3"/>
-          <path d="M96,160 L96,112 Q96,102 78,93 L78,93 Q96,102 96,112 Z" fill="url(#glassGrad)" opacity="0.15"/>
+              <!-- Glass body - bottom bulb -->
+              <path d="M25 146 C25 146, 25 92, 50 82 C75 92, 75 146, 75 146" fill="url(#glassGrad)" stroke="rgba(255,220,180,0.25)" stroke-width="1"/>
 
-          <!-- Shine reflection -->
-          <path d="M30,22 L30,62 Q30,72 44,82" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="4" stroke-linecap="round"/>
-          <path d="M30,158 L30,118 Q30,108 44,98" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="3" stroke-linecap="round"/>
+              <!-- Sand top -->
+              <path class="sand-top" d="M30 20 C30 20, 28 55, 50 70 C72 55, 70 20, 70 20 Z" fill="url(#sandGrad)" opacity="0.9"/>
 
-          <!-- Sand in top bulb -->
-          <g class="sand-top-fill" filter="url(#sandGlow)">
-            <path d="M30,30 L90,30 L90,62 Q90,76 62,86 L58,86 Q30,76 30,62 Z" fill="url(#sandGrad)" opacity="0.85"/>
-          </g>
+              <!-- Sand bottom -->
+              <path class="sand-bottom" d="M32 140 C32 140, 30 110, 50 95 C70 110, 68 140, 68 140 Z" fill="url(#sandGrad)" opacity="0.9"/>
 
-          <!-- Sand stream in middle -->
-          <g class="sand-stream-line">
-            <line x1="60" y1="86" x2="60" y2="94" stroke="#e8a040" stroke-width="2.5" stroke-linecap="round" opacity="0.9"/>
-            <circle cx="60" cy="95" r="1.5" fill="#e8a040" class="sand-drip" opacity="0.7"/>
-          </g>
+              <!-- Sand stream -->
+              <line class="sand-stream" x1="50" y1="72" x2="50" y2="92" stroke="#d49050" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+              <line class="sand-stream" x1="50" y1="76" x2="50" y2="88" stroke="#e8a860" stroke-width="1" stroke-linecap="round" opacity="0.5" style="animation-delay: 0.1s;"/>
 
-          <!-- Sand in bottom bulb -->
-          <g class="sand-bottom-fill" filter="url(#sandGlow)">
-            <path d="M30,150 L90,150 L90,118 Q90,104 62,94 L58,94 Q30,104 30,118 Z" fill="url(#sandGrad)" opacity="0.85"/>
-          </g>
+              <!-- Glass reflection highlights -->
+              <path d="M30 18 C30 18, 32 50, 42 62" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              <path d="M32 130 C32 130, 34 115, 42 100" stroke="rgba(255,255,255,0.1)" stroke-width="1" fill="none" stroke-linecap="round"/>
 
-          <!-- Small decorative dots on bars -->
-          <circle cx="30" cy="9" r="1.5" fill="rgba(255,255,255,0.4)"/>
-          <circle cx="90" cy="9" r="1.5" fill="rgba(255,255,255,0.4)"/>
-          <circle cx="30" cy="171" r="1.5" fill="rgba(255,255,255,0.4)"/>
-          <circle cx="90" cy="171" r="1.5" fill="rgba(255,255,255,0.4)"/>
-          <circle cx="60" cy="9" r="1" fill="rgba(255,255,255,0.25)"/>
-          <circle cx="60" cy="171" r="1" fill="rgba(255,255,255,0.25)"/>
-        </svg>
+              <!-- Decorative dots on caps -->
+              <circle cx="30" cy="7" r="1" fill="#f0d8b0" opacity="0.6"/>
+              <circle cx="50" cy="7" r="1" fill="#f0d8b0" opacity="0.6"/>
+              <circle cx="70" cy="7" r="1" fill="#f0d8b0" opacity="0.6"/>
+              <circle cx="30" cy="153" r="1" fill="#f0d8b0" opacity="0.6"/>
+              <circle cx="50" cy="153" r="1" fill="#f0d8b0" opacity="0.6"/>
+              <circle cx="70" cy="153" r="1" fill="#f0d8b0" opacity="0.6"/>
+            </svg>
+          </div>
+        </div>
       </div>
 
       <!-- Logo -->
-      <img class="loading-logo" src="image/لوجو .jpg" alt="لوجو" onerror="this.style.display='none'" />
+      <img class="loading-logo" src="image/لوجو .jpg" alt="لوجو" onerror="this.style.display='none'"/>
 
-      <div class="loading-text">اسواق تبارك</div>
-      <div class="loading-subtext">جاري تحميل المتجر...</div>
+      <!-- Text -->
+      <div class="loading-title">اسواق تبارك</div>
+      <div class="loading-subtitle">جاري تحميل المتجر ...</div>
+
+      <!-- Dots -->
       <div class="loading-dots">
         <span></span>
         <span></span>
         <span></span>
       </div>
-      <div class="loading-progress">
-        <div class="loading-progress-bar"></div>
+
+      <!-- Progress -->
+      <div class="loading-progress-wrap">
+        <div class="loading-progress">
+          <div class="loading-progress-bar"></div>
+        </div>
+        <div id="loadingPercent" class="loading-percent">0%</div>
       </div>
-      <div class="loading-percent" id="loadingPercent">0%</div>
     </div>
     <!-- ===== END LOADING SCREEN ===== -->
 
@@ -1248,21 +1305,21 @@
         </div>
         <p>متجر لجميع منتجات الماركت والعلافة.</p>
         <div class="contact">
-          <a href="tel:01030566078" aria-label="اتصال برقم التواصل 01030566078">رقم التواصل: 01030566078</a>
-          <a href="tel:01030566078" aria-label="اتصال برقم الدليفري 01030566078">رقم الدليفري: 01030566078</a>
+          <a href="tel:01040495915" aria-label="اتصال برقم الدليفري 01040495915">📞 رقم الدليفري: 01040495915</a>
+          <a href="https://wa.me/201097257029" target="_blank" rel="noopener" aria-label="واتساب 01097257029">💬 واتساب: 01097257029</a>
+          <a href="https://wa.me/201040495915" target="_blank" rel="noopener" aria-label="واتساب 01040495915">💬 واتساب: 01040495915</a>
         </div>
       </header>
 
+      <!-- بنر إعلاني أسفل الهيدر بصورة -->
       <a class="banner-link" href="#productsSection" aria-label="الانتقال الى صفحة المنتجات والعروض">
-        <div class="banner-with-image">
-          <div class="banner-img-wrapper">
-            <img src="image/banner.jpg" alt="عروض اسواق تبارك" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1604719312566-8912e9227c6a?auto=format&fit=crop&w=1200&q=80';" />
-            <div class="banner-img-overlay">
-              <span class="banner-badge">🔥 عروض حصرية</span>
-              <div class="banner-title">عروض اسواق تبارك - وفّر أكتر!</div>
-              <div class="banner-subtitle">اضغط هنا للانتقال الى صفحة العروض والمنتجات 👇</div>
-            </div>
+        <div class="banner-img-wrap">
+          <img src="https://f.top4top.io/p_3732bi49t2.jpg" alt="عروض اسواق تبارك" />
+          <div class="banner-img-overlay">
+            <h3>🔥 عروض اسواق تبارك - وفّر أكتر!</h3>
+            <p>اضغط هنا للانتقال الى صفحة العروض والمنتجات</p>
           </div>
+          <span class="banner-badge">🔥 عروض حصرية</span>
         </div>
       </a>
 
@@ -1294,22 +1351,21 @@
         <p id="notice" class="muted"></p>
       </section>
 
-      <a class="banner-link" href="https://wa.me/201030566078" target="_blank" rel="noopener" aria-label="الانتقال الى صفحة التواصل على واتساب">
-        <div class="banner-with-image">
-          <div class="banner-img-wrapper">
-            <img src="image/banner2.jpg" alt="بنر اعلاني - تواصل معنا على واتساب" onerror="this.src='https://images.unsplash.com/photo-1604719312566-8912e9227c6a?auto=format&fit=crop&w=1200&q=80'" />
-            <div class="banner-img-overlay">
-              <span class="banner-badge banner-badge-green">💬 تواصل معنا</span>
-              <div class="banner-title">تواصل معنا عبر واتساب</div>
-              <div class="banner-subtitle">للاستفسارات السريعة والعروض الخاصة - اضغط هنا</div>
-            </div>
+      <!-- بنر إعلاني أعلى الفوتر بصورة -->
+      <a class="banner-link" href="https://wa.me/201097257029" target="_blank" rel="noopener" aria-label="الانتقال الى صفحة التواصل على واتساب">
+        <div class="banner-img-wrap">
+          <img src="https://l.top4top.io/p_3732b1lxd1.jpg" alt="تواصل معنا عبر واتساب" />
+          <div class="banner-img-overlay">
+            <h3>💬 تواصل معنا عبر واتساب</h3>
+            <p>للاستفسارات السريعة والعروض الخاصة - اضغط هنا</p>
           </div>
+          <span class="banner-badge green">💬 تواصل معنا</span>
         </div>
       </a>
 
       <footer>
-        <div>اسواق تبارك - خدمة العملاء: <a href="tel:01030566078">01030566078</a></div>
-        <div>الدليفري: <a href="tel:01030566078">01030566078</a></div>
+        <div>اسواق تبارك - الدليفري: <a href="tel:01040495915">01040495915</a></div>
+        <div>واتساب: <a href="https://wa.me/201097257029" target="_blank" rel="noopener">01097257029</a> | <a href="https://wa.me/201040495915" target="_blank" rel="noopener">01040495915</a></div>
       </footer>
     </div>
 
@@ -1334,9 +1390,15 @@
           <label for="customerAddress">العنوان</label>
           <textarea id="customerAddress" placeholder="اكتب العنوان بالتفصيل"></textarea>
         </div>
-        <div class="modal-actions">
-          <button id="cancelCheckoutBtn" class="btn-cancel">الغاء</button>
-          <button id="confirmSendBtn" class="wa">تاكيد وارسال واتساب</button>
+        <p style="font-size:13px; color:#555; margin:10px 0 6px; font-weight:700;">اختر رقم الواتساب لارسال الطلب:</p>
+        <div class="modal-actions" style="flex-direction:column;">
+          <button id="confirmSendBtn1" class="wa" style="width:100%; display:flex; align-items:center; justify-content:center; gap:8px;">
+            💬 ارسال الى 01097257029
+          </button>
+          <button id="confirmSendBtn2" class="wa" style="width:100%; display:flex; align-items:center; justify-content:center; gap:8px;">
+            💬 ارسال الى 01040495915
+          </button>
+          <button id="cancelCheckoutBtn" class="btn-cancel" style="width:100%;">الغاء</button>
         </div>
       </div>
     </div>
@@ -1355,152 +1417,148 @@
     </div>
 
     <script>
-      // ===== LOADING SCREEN LOGIC =====
-      // Loading percentage animation
+      // ===== Loading Screen Logic =====
       (function() {
+        const loadingScreen = document.getElementById('loadingScreen');
         const percentEl = document.getElementById('loadingPercent');
-        let current = 0;
-        const interval = setInterval(function() {
-          current += Math.floor(Math.random() * 8) + 2;
-          if (current > 99) current = 99;
-          percentEl.textContent = current + '%';
-        }, 100);
-
-        window.addEventListener('load', function() {
-          clearInterval(interval);
-          percentEl.textContent = '100%';
-          const overlay = document.getElementById('loadingOverlay');
-          setTimeout(function() {
-            overlay.classList.add('hidden');
-            setTimeout(function() {
-              overlay.remove();
-            }, 800);
-          }, 2000);
-        });
+        let percent = 0;
+        const interval = setInterval(() => {
+          percent += Math.floor(Math.random() * 8) + 3;
+          if (percent > 100) percent = 100;
+          percentEl.textContent = percent + '%';
+          if (percent >= 100) {
+            clearInterval(interval);
+            setTimeout(() => {
+              loadingScreen.classList.add('hidden');
+              setTimeout(() => {
+                loadingScreen.remove();
+              }, 800);
+            }, 400);
+          }
+        }, 120);
       })();
 
-      const WHATSAPP_NUMBER = "201030566078";
+      const WHATSAPP_NUMBER_1 = "201097257029";
+      const WHATSAPP_NUMBER_2 = "201040495915";
       const DELIVERY_FEE = 15;
       let isFriday = new Date().getDay() === 5;
       let selectedCategory = "الكل";
       let searchTerm = "";
       const categoryImages = {
-        "قسم البيض": "https://images.unsplash.com/photo-1506976785307-8732e854ad03?auto=format&fit=crop&w=700&q=80",
-        "الأرز والمكرونة": "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=700&q=80",
-        "الزيوت والسمن": "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=700&q=80",
-        "فطارك عندنا": "https://images.unsplash.com/photo-1559598467-f8b76c8155d0?auto=format&fit=crop&w=700&q=80",
-        "المجمدات والأسماك": "https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?auto=format&fit=crop&w=700&q=80",
-        "البقوليات والصوصات والعطارة": "https://images.unsplash.com/photo-1515543904379-3d757afe72e4?auto=format&fit=crop&w=700&q=80",
-        "المشروبات الشتوية": "https://images.unsplash.com/photo-1517701550927-30cf4ba1f4d6?auto=format&fit=crop&w=700&q=80",
-        "المنظفات والمعطرات": "https://images.unsplash.com/photo-1585421514738-01798e348b17?auto=format&fit=crop&w=700&q=80"
+        "قسم البيض والاجبان": "https://images.unsplash.com/photo-1506976785307-8732e854ad03?auto=format&fit=crop&w=700&q=80",
+        "قسم الارز والمكرونة": "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=700&q=80",
+        "قسم الزيوت والسمن": "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=700&q=80",
+        "قسم البقوليات والصوصات": "https://images.unsplash.com/photo-1515543904379-3d757afe72e4?auto=format&fit=crop&w=700&q=80",
+        "قسم المجمدات والأسماك": "https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?auto=format&fit=crop&w=700&q=80",
+        "قسم المشروبات": "https://images.unsplash.com/photo-1544145945-f90425340c7e?auto=format&fit=crop&w=700&q=80",
+        "قسم المنظفات": "https://images.unsplash.com/photo-1585421514738-01798e348b17?auto=format&fit=crop&w=700&q=80"
       };
 
       const productSeed = [
-        // قسم البيض
-        { name: "طبق بيض أبيض وزن 2 كجم", category: "قسم البيض", fridayPrice: 125, price: 135, stock: 30, image: "image/01.jpg" },
-        { name: "طبق بيض أحمر وزن 2 كجم", category: "قسم البيض", fridayPrice: 135, price: 140, stock: 28, image: "image/02.jpg" },
-        // الأرز والمكرونة
-        { name: "كيلو أرز وسط", category: "الأرز والمكرونة", fridayPrice: 22, price: 28, stock: 45, image: "image/05.jpg" },
-        { name: "كيلو أرز عريض", category: "الأرز والمكرونة", fridayPrice: 27, price: 32, stock: 45, image: "image/06.jpg" },
-        { name: "كيلو أرز بسمتي اقتصادي", category: "الأرز والمكرونة", fridayPrice: 45, price: 50, stock: 38, image: "image/75.png" },
-        { name: "كيلو أرز بسمتي فاخر", category: "الأرز والمكرونة", fridayPrice: 60, price: 70, stock: 32, image: "image/75.png" },
-        { name: "كيلو أرز بسمتي سوبر", category: "الأرز والمكرونة", fridayPrice: 80, price: 90, stock: 30, image: "image/75.png" },
-        { name: "شيكارة أرز 25 كيلو (وسط)", category: "الأرز والمكرونة", fridayPrice: 515, price: 580, stock: 20, image: "image/07.jpg" },
-        { name: "شيكارة أرز 25 كيلو (عريض)", category: "الأرز والمكرونة", fridayPrice: 645, price: 720, stock: 18, image: "image/08.jpg" },
-        { name: "باكيت أرز الخير والبركة (10 أكياس)", category: "الأرز والمكرونة", fridayPrice: 225, price: 280, stock: 25, image: "image/09.jpg" },
-        { name: "شيكارة أرز الندى (10 كجم وسط)", category: "الأرز والمكرونة", fridayPrice: 215, price: 250, stock: 20, image: "image/131.jpg" },
-        { name: "باكيت أرز الحمامتين (10 كجم)", category: "الأرز والمكرونة", fridayPrice: 255, price: 270, stock: 20, image: "image/130.jpg" },
-        { name: "عرض 2 كيس أرز الخير والبركة", category: "الأرز والمكرونة", fridayPrice: 50, price: 60, stock: 30, image: "image/10.jpg" },
-        { name: "شيكارة أرز زاد 5 كيلو", category: "الأرز والمكرونة", fridayPrice: 165, price: 180, stock: 22, image: "image/132.jpg" },
-        { name: "شيكارة أرز الساعة 5 كيلو", category: "الأرز والمكرونة", fridayPrice: 175, price: 185, stock: 22, image: "image/133.jpg" },
-        { name: "شيكارة أرز الضحى 5 كيلو", category: "الأرز والمكرونة", fridayPrice: 200, price: 220, stock: 22, image: "image/134.jpg" },
-        { name: "شيكارة أرز بسمتي 5 كيلو", category: "الأرز والمكرونة", fridayPrice: 220, price: 300, stock: 18, image: "image/145.jpg" },
-        { name: "شيكارة أرز زي العسل 5 كيلو", category: "الأرز والمكرونة", fridayPrice: 165, price: 180, stock: 22, image: "image/81.jpg" },
-        { name: "مكرونة أنواع 1 كجم", category: "الأرز والمكرونة", fridayPrice: 20, price: 24, stock: 60, image: "image/142.jpg" },
-        { name: "مكرونة اسباكيتي 1 كجم", category: "الأرز والمكرونة", fridayPrice: 23, price: 25, stock: 52, image: "image/140.jpg" },
-        { name: "شيكارة مكرونة (أي نوع ما عدا الاسباجتي)", category: "الأرز والمكرونة", fridayPrice: 189, price: 220, stock: 16, image: "image/141.jpg" },
-        { name: "شيكارة مكرونة الاسباجتي", category: "الأرز والمكرونة", fridayPrice: 225, price: 250, stock: 16, image: "image/17.jpg" },
-        { name: "عرض 10 كيس مكرونة الملكة (مشكل)", category: "الأرز والمكرونة", fridayPrice: 138, price: 150, stock: 25, image: "image/19.jpg" },
-        // الزيوت والسمن
-        { name: "عرض 2 زيت سهر (700 جرام)", category: "الزيوت والسمن", fridayPrice: 95, price: 110, stock: 30, image: "image/33.jpg" },
-        { name: "2 زجاجة زيت سيلا (لتر صافي)", category: "الزيوت والسمن", fridayPrice: 129, price: 150, stock: 26, image: "image/123.jpg" },
-        { name: "2 زجاجة زيت قلية او حلوة (لتر صافي)", category: "الزيوت والسمن", fridayPrice: 145, price: 160, stock: 24, image: "image/122.jpg" },
-        { name: "زجاجة زيت حلوة او قلية (1 لتر)", category: "الزيوت والسمن", fridayPrice: 73, price: 80, stock: 35, image: "image/36.jpg" },
-        { name: "زجاجة زيت الممتاز (1 لتر)", category: "الزيوت والسمن", fridayPrice: 73, price: 80, stock: 35, image: "image/121.jpg" },
-        { name: "زجاجة زيت كريستال عباد الشمس (700 جرام)", category: "الزيوت والسمن", fridayPrice: 78, price: 85, stock: 35, image: "image/143.jpg" },
-        { name: "زجاجة زيت سيلا (700 جرام)", category: "الزيوت والسمن", fridayPrice: 89, price: 100, stock: 30, image: "image/30.jpg" },
-        { name: "زجاجة زيت كريستال عباد (700 جرام)", category: "الزيوت والسمن", fridayPrice: 78, price: 85, stock: 35, image: "image/31.jpg" },
-        { name: "زجاجة زيت سيلايت (2.5 لتر)", category: "الزيوت والسمن", fridayPrice: 190, price: 200, stock: 20, image: "image/124.jpg" },
-        { name: "زجاجة زيت حلوة (3 لتر)", category: "الزيوت والسمن", fridayPrice: 160, price: 170, stock: 20, image: "image/106.jpg" },
-        { name: "زجاجة زيت حلوة (5 لتر)", category: "الزيوت والسمن", fridayPrice: 318, price: 330, stock: 18, image: "image/106.jpg" },
-        { name: "زجاجة زيت صني (5 لتر)", category: "الزيوت والسمن", fridayPrice: 325, price: 340, stock: 18, image: "image/135.jpg" },
-        { name: "كيلو سمن سايب", category: "الزيوت والسمن", fridayPrice: 105, price: 120, stock: 30, image: "image/22.jpg" },
-        { name: "علبة سمنة الساقية", category: "الزيوت والسمن", fridayPrice: 75, price: 85, stock: 30, image: "image/23.jpg" },
-        { name: "علبة سمنة قوت القلوب", category: "الزيوت والسمن", fridayPrice: 100, price: 120, stock: 25, image: "image/92.png" },
-        { name: "سمنة (كريستال/روابي/جنة) 2 كيلو", category: "الزيوت والسمن", fridayPrice: 155, price: 165, stock: 20, image: "image/25.jpg" },
-        { name: "سمنة (كريستال/روابي/جنة) 11 كيلو", category: "الزيوت والسمن", fridayPrice: 1080, price: 1150, stock: 10, image: "image/129.jpg" },
-        // فطارك عندنا
-        { name: "عرض 2 كيلو سكر (1000 جرام)", category: "فطارك عندنا", fridayPrice: 55, price: 60, stock: 40, image: "image/20.jpg" },
-        { name: "باكت سكر 10 كجم", category: "فطارك عندنا", fridayPrice: 275, price: 300, stock: 16, image: "image/93.jpg" },
-        { name: "عرض 2 كيلو دقيق سايب", category: "فطارك عندنا", fridayPrice: 35, price: 40, stock: 45, image: "image/21.jpg" },
-        { name: "كيلو جبنة تلاجة", category: "فطارك عندنا", fridayPrice: 100, price: 120, stock: 24, image: "image/26.jpg" },
-        { name: "كيلو جبنة براميلي", category: "فطارك عندنا", fridayPrice: 150, price: 180, stock: 22, image: "image/27.jpg" },
-        { name: "كيلو جبنة قريش", category: "فطارك عندنا", fridayPrice: 110, price: 130, stock: 22, image: "image/101.jpg" },
-        { name: "كيلو جبنة كيري", category: "فطارك عندنا", fridayPrice: 140, price: 160, stock: 20, image: "image/102.jpg" },
-        { name: "عرض 2 علبة جبنة دومتي (500 جرام)", category: "فطارك عندنا", fridayPrice: 69, price: 80, stock: 25, image: "image/48.jpg" },
-        { name: "عرض طبق جبنة رومي (250 جرام)", category: "فطارك عندنا", fridayPrice: 65, price: 75, stock: 25, image: "image/112.jpg" },
-        { name: "كيلو طحينة سايب", category: "فطارك عندنا", fridayPrice: 120, price: 160, stock: 18, image: "image/28.jpg" },
-        { name: "كيلو حلاوة سايبة ممتازة", category: "فطارك عندنا", fridayPrice: 120, price: 140, stock: 18, image: "image/29.jpg" },
-        { name: "مربى البوادي كبير", category: "فطارك عندنا", fridayPrice: 45, price: 55, stock: 32, image: "image/108.jpg" },
-        { name: "مربى البوادي صغير", category: "فطارك عندنا", fridayPrice: 23, price: 30, stock: 34, image: "image/107.jpg" },
-        { name: "كيلو عسل أسمر", category: "فطارك عندنا", fridayPrice: 44, price: 55, stock: 28, image: "image/42.jpg" },
-        { name: "شيكولاتة بلبن اسبريت 1 كجم", category: "فطارك عندنا", fridayPrice: 245, price: 260, stock: 14, image: "image/82.jpg" },
-        { name: "بلح رطب سكري", category: "فطارك عندنا", fridayPrice: 80, price: 90, stock: 26, image: "image/58.jpg" },
-        { name: "مربى فيتراك 1 كجم", category: "فطارك عندنا", fridayPrice: 70, price: 80, stock: 24, image: "image/68.png" },
-        { name: "شاي ليبتون 250 جم", category: "فطارك عندنا", fridayPrice: 58, price: 65, stock: 28, image: "image/72.png" },
-        // المجمدات والأسماك
-        { name: "لانشون حلواني 250 جم", category: "المجمدات والأسماك", fridayPrice: 70, price: 80, stock: 22, image: "image/79.png" },
-        { name: "لانشون اوريجينال 250 جم", category: "المجمدات والأسماك", fridayPrice: 27, price: 35, stock: 24, image: "image/78.png" },
-        { name: "برجر المراعي عائلي", category: "المجمدات والأسماك", fridayPrice: 115, price: 125, stock: 20, image: "image/37.jpg" },
-        { name: "برجر توابل شرقية (25 قطعة)", category: "المجمدات والأسماك", fridayPrice: 125, price: 135, stock: 18, image: "image/39.jpg" },
-        { name: "طبق لحمة مفرومة 1/2 كجم", category: "المجمدات والأسماك", fridayPrice: 145, price: 160, stock: 18, image: "image/84.png" },
-        { name: "طبق لحمة مفرومة 250 جم", category: "المجمدات والأسماك", fridayPrice: 75, price: 85, stock: 22, image: "image/84.png" },
-        { name: "طبق كبدة 1/2 كجم", category: "المجمدات والأسماك", fridayPrice: 95, price: 110, stock: 20, image: "image/87.png" },
-        { name: "طبق سجق 1/2 كجم", category: "المجمدات والأسماك", fridayPrice: 95, price: 110, stock: 20, image: "image/88.png" },
-        { name: "طبق برجر 1/2 كجم", category: "المجمدات والأسماك", fridayPrice: 95, price: 110, stock: 20, image: "image/90.png" },
-        { name: "طبق كفتة ارز 1/2 كجم", category: "المجمدات والأسماك", fridayPrice: 95, price: 110, stock: 20, image: "image/86.png" },
-        { name: "طبق حواوشي 1/2 كجم", category: "المجمدات والأسماك", fridayPrice: 85, price: 100, stock: 20, image: "image/89.png" },
-        { name: "طبق لحمة قطع 1/2 كجم", category: "المجمدات والأسماك", fridayPrice: 155, price: 170, stock: 16, image: "image/87.png" },
-        { name: "وجبة كوكي كاملة مع كيس بطاطس", category: "المجمدات والأسماك", fridayPrice: 230, price: 245, stock: 15, image: "image/136.jpg" },
-        { name: "جناح كوكي", category: "المجمدات والأسماك", fridayPrice: 120, price: 130, stock: 18, image: "image/137.jpg" },
-        { name: "دبوس كوكي", category: "المجمدات والأسماك", fridayPrice: 170, price: 180, stock: 16, image: "image/138.jpg" },
-        { name: "استربس مزايا كيلو", category: "المجمدات والأسماك", fridayPrice: 185, price: 200, stock: 16, image: "image/144.jpg" },
-        { name: "كيلو رنجة درجة أولى", category: "المجمدات والأسماك", fridayPrice: 115, price: 140, stock: 20, image: "image/40.jpg" },
-        { name: "عرض 4 علبة تونة", category: "المجمدات والأسماك", fridayPrice: 95, price: 120, stock: 24, image: "image/41.jpg" },
-        // البقوليات والصوصات والعطارة
-        { name: "كيلو عدس أصفر", category: "البقوليات والصوصات والعطارة", fridayPrice: 50, price: 60, stock: 30, image: "image/52.jpg" },
-        { name: "كيلو عدس بجبة", category: "البقوليات والصوصات والعطارة", fridayPrice: 55, price: 60, stock: 30, image: "image/53.jpg" },
-        { name: "كيلو فاصوليا", category: "البقوليات والصوصات والعطارة", fridayPrice: 55, price: 80, stock: 26, image: "image/54.jpg" },
-        { name: "كيلو لوبيا", category: "البقوليات والصوصات والعطارة", fridayPrice: 55, price: 80, stock: 26, image: "image/55.jpg" },
-        { name: "(1/8) بهارات مشكلة", category: "البقوليات والصوصات والعطارة", fridayPrice: 145, price: 200, stock: 16, image: "image/62.jpg" },
-        { name: "باكيت ملح بونو", category: "البقوليات والصوصات والعطارة", fridayPrice: 38, price: 48, stock: 22, image: "image/43.jpg" },
-        { name: "باكيت ملح بونو (650 جرام)", category: "البقوليات والصوصات والعطارة", fridayPrice: 43, price: 50, stock: 22, image: "image/43.jpg" },
-        { name: "عرض 2 برطمان صلصة 360 جم", category: "البقوليات والصوصات والعطارة", fridayPrice: 30, price: 40, stock: 28, image: "image/50.jpg" },
-        { name: "عرض 3 خل ثمار", category: "البقوليات والصوصات والعطارة", fridayPrice: 35, price: 45, stock: 20, image: "image/51.jpg" },
-        { name: "كيلو كاتشب حار", category: "البقوليات والصوصات والعطارة", fridayPrice: 40, price: 50, stock: 20, image: "image/56.jpg" },
-        { name: "كيلو كاتشب بارد", category: "البقوليات والصوصات والعطارة", fridayPrice: 40, price: 50, stock: 20, image: "image/57.jpg" },
-        { name: "كيلو خل مركز سايب", category: "البقوليات والصوصات والعطارة", fridayPrice: 30, price: 40, stock: 24, image: "image/60.jpg" },
-        { name: "كيلو مخلل بوليف", category: "البقوليات والصوصات والعطارة", fridayPrice: 20, price: 30, stock: 28, image: "image/45.jpg" },
-        { name: "2 كيس بقسماط ريتش باك 500 جرام", category: "البقوليات والصوصات والعطارة", fridayPrice: 50, price: 60, stock: 22, image: "image/113.jpg" },
-        // المشروبات الشتوية
-        { name: "عرض 2 سحلب علاء (250 جرام)", category: "المشروبات الشتوية", fridayPrice: 50, price: 60, stock: 24, image: "image/47.jpg" },
-        { name: "سحلب علاء الدين (400 جرام)", category: "المشروبات الشتوية", fridayPrice: 45, price: 50, stock: 24, image: "image/61.jpg" },
-        // المنظفات والمعطرات
-        { name: "أوكسي 2.5 كيلو أوتوماتيك", category: "المنظفات والمعطرات", fridayPrice: 180, price: 190, stock: 20, image: "image/63.jpg" },
-        { name: "أوكسي 5 كيلو أوتوماتيك", category: "المنظفات والمعطرات", fridayPrice: 305, price: 320, stock: 15, image: "image/64.jpg" },
-        { name: "أوكسي 9 كيلو أوتوماتيك", category: "المنظفات والمعطرات", fridayPrice: 465, price: 480, stock: 12, image: "image/65.jpg" },
-        { name: "عرض 2 بخاخ معطر جو فلاور", category: "المنظفات والمعطرات", fridayPrice: 85, price: 110, stock: 18, image: "image/66.jpg" },
-        { name: "عرض لفة صابون (4 صابونة 110 جرام)", category: "المنظفات والمعطرات", fridayPrice: 50, price: 60, stock: 22, image: "image/139.jpg" }
+        // قسم البيض والاجبان
+        { name: "طبق بيض أبيض وزن 2 كجم", category: "قسم البيض والاجبان", fridayPrice: 125, price: 135, stock: 30, image: "image/01.jpg" },
+        { name: "طبق بيض أحمر وزن 2 كجم", category: "قسم البيض والاجبان", fridayPrice: 135, price: 140, stock: 28, image: "image/02.jpg" },
+        { name: "كيلو جبنة تلاجة", category: "قسم البيض والاجبان", fridayPrice: 100, price: 120, stock: 24, image: "image/26.jpg" },
+        { name: "كيلو جبنة براميلي", category: "قسم البيض والاجبان", fridayPrice: 150, price: 180, stock: 22, image: "image/27.jpg" },
+        { name: "كيلو جبنة قريش", category: "قسم البيض والاجبان", fridayPrice: 110, price: 130, stock: 22, image: "image/101.jpg" },
+        { name: "كيلو جبنة كيري", category: "قسم البيض والاجبان", fridayPrice: 140, price: 160, stock: 20, image: "image/102.jpg" },
+        { name: "عرض 2 علبة جبنة دومتي (500 جرام)", category: "قسم البيض والاجبان", fridayPrice: 69, price: 80, stock: 25, image: "image/48.jpg" },
+        { name: "عرض طبق جبنة رومي (250 جرام)", category: "قسم البيض والاجبان", fridayPrice: 65, price: 75, stock: 25, image: "image/112.jpg" },
+        // قسم الارز والمكرونة
+        { name: "كيلو أرز وسط", category: "قسم الارز والمكرونة", fridayPrice: 22, price: 28, stock: 45, image: "image/05.jpg" },
+        { name: "كيلو أرز عريض", category: "قسم الارز والمكرونة", fridayPrice: 27, price: 32, stock: 45, image: "image/06.jpg" },
+        { name: "كيلو أرز بسمتي اقتصادي", category: "قسم الارز والمكرونة", fridayPrice: 45, price: 50, stock: 38, image: "image/75.png" },
+        { name: "كيلو أرز بسمتي فاخر", category: "قسم الارز والمكرونة", fridayPrice: 60, price: 70, stock: 32, image: "image/75.png" },
+        { name: "كيلو أرز بسمتي سوبر", category: "قسم الارز والمكرونة", fridayPrice: 80, price: 90, stock: 30, image: "image/75.png" },
+        { name: "شيكارة أرز 25 كيلو (وسط)", category: "قسم الارز والمكرونة", fridayPrice: 515, price: 580, stock: 20, image: "image/07.jpg" },
+        { name: "شيكارة أرز 25 كيلو (عريض)", category: "قسم الارز والمكرونة", fridayPrice: 645, price: 720, stock: 18, image: "image/08.jpg" },
+        { name: "باكيت أرز الخير والبركة (10 أكياس)", category: "قسم الارز والمكرونة", fridayPrice: 225, price: 280, stock: 25, image: "image/09.jpg" },
+        { name: "شيكارة أرز الندى (10 كجم وسط)", category: "قسم الارز والمكرونة", fridayPrice: 215, price: 250, stock: 20, image: "image/131.jpg" },
+        { name: "باكيت أرز الحمامتين (10 كجم)", category: "قسم الارز والمكرونة", fridayPrice: 255, price: 270, stock: 20, image: "image/130.jpg" },
+        { name: "عرض 2 كيس أرز الخير والبركة", category: "قسم الارز والمكرونة", fridayPrice: 50, price: 60, stock: 30, image: "image/10.jpg" },
+        { name: "شيكارة أرز زاد 5 كيلو", category: "قسم الارز والمكرونة", fridayPrice: 165, price: 180, stock: 22, image: "image/132.jpg" },
+        { name: "شيكارة أرز الساعة 5 كيلو", category: "قسم الارز والمكرونة", fridayPrice: 175, price: 185, stock: 22, image: "image/133.jpg" },
+        { name: "شيكارة أرز الضحى 5 كيلو", category: "قسم الارز والمكرونة", fridayPrice: 200, price: 220, stock: 22, image: "image/134.jpg" },
+        { name: "شيكارة أرز بسمتي 5 كيلو", category: "قسم الارز والمكرونة", fridayPrice: 220, price: 300, stock: 18, image: "image/145.jpg" },
+        { name: "شيكارة أرز زي العسل 5 كيلو", category: "قسم الارز والمكرونة", fridayPrice: 165, price: 180, stock: 22, image: "image/81.jpg" },
+        { name: "مكرونة أنواع 1 كجم", category: "قسم الارز والمكرونة", fridayPrice: 20, price: 24, stock: 60, image: "image/142.jpg" },
+        { name: "مكرونة اسباكيتي 1 كجم", category: "قسم الارز والمكرونة", fridayPrice: 23, price: 25, stock: 52, image: "image/140.jpg" },
+        { name: "شيكارة مكرونة (أي نوع ما عدا الاسباجتي)", category: "قسم الارز والمكرونة", fridayPrice: 189, price: 220, stock: 16, image: "image/141.jpg" },
+        { name: "شيكارة مكرونة الاسباجتي", category: "قسم الارز والمكرونة", fridayPrice: 225, price: 250, stock: 16, image: "image/17.jpg" },
+        { name: "عرض 10 كيس مكرونة الملكة (مشكل)", category: "قسم الارز والمكرونة", fridayPrice: 138, price: 150, stock: 25, image: "image/19.jpg" },
+        // قسم الزيوت والسمن
+        { name: "عرض 2 زيت سهر (700 جرام)", category: "قسم الزيوت والسمن", fridayPrice: 95, price: 110, stock: 30, image: "image/33.jpg" },
+        { name: "2 زجاجة زيت سيلا (لتر صافي)", category: "قسم الزيوت والسمن", fridayPrice: 129, price: 150, stock: 26, image: "image/123.jpg" },
+        { name: "2 زجاجة زيت قلية او حلوة (لتر صافي)", category: "قسم الزيوت والسمن", fridayPrice: 145, price: 160, stock: 24, image: "image/122.jpg" },
+        { name: "زجاجة زيت حلوة او قلية (1 لتر)", category: "قسم الزيوت والسمن", fridayPrice: 73, price: 80, stock: 35, image: "image/36.jpg" },
+        { name: "زجاجة زيت الممتاز (1 لتر)", category: "قسم الزيوت والسمن", fridayPrice: 73, price: 80, stock: 35, image: "image/121.jpg" },
+        { name: "زجاجة زيت كريستال عباد الشمس (700 جرام)", category: "قسم الزيوت والسمن", fridayPrice: 78, price: 85, stock: 35, image: "image/143.jpg" },
+        { name: "زجاجة زيت سيلا (700 جرام)", category: "قسم الزيوت والسمن", fridayPrice: 89, price: 100, stock: 30, image: "image/30.jpg" },
+        { name: "زجاجة زيت كريستال عباد (700 جرام)", category: "قسم الزيوت والسمن", fridayPrice: 78, price: 85, stock: 35, image: "image/31.jpg" },
+        { name: "زجاجة زيت سيلايت (2.5 لتر)", category: "قسم الزيوت والسمن", fridayPrice: 190, price: 200, stock: 20, image: "image/124.jpg" },
+        { name: "زجاجة زيت حلوة (3 لتر)", category: "قسم الزيوت والسمن", fridayPrice: 160, price: 170, stock: 20, image: "image/106.jpg" },
+        { name: "زجاجة زيت حلوة (5 لتر)", category: "قسم الزيوت والسمن", fridayPrice: 318, price: 330, stock: 18, image: "image/106.jpg" },
+        { name: "زجاجة زيت صني (5 لتر)", category: "قسم الزيوت والسمن", fridayPrice: 325, price: 340, stock: 18, image: "image/135.jpg" },
+        { name: "كيلو سمن سايب", category: "قسم الزيوت والسمن", fridayPrice: 105, price: 120, stock: 30, image: "image/22.jpg" },
+        { name: "علبة سمنة الساقية", category: "قسم الزيوت والسمن", fridayPrice: 75, price: 85, stock: 30, image: "image/23.jpg" },
+        { name: "علبة سمنة قوت القلوب", category: "قسم الزيوت والسمن", fridayPrice: 100, price: 120, stock: 25, image: "image/92.png" },
+        { name: "سمنة (كريستال/روابي/جنة) 2 كيلو", category: "قسم الزيوت والسمن", fridayPrice: 155, price: 165, stock: 20, image: "image/25.jpg" },
+        { name: "سمنة (كريستال/روابي/جنة) 11 كيلو", category: "قسم الزيوت والسمن", fridayPrice: 1080, price: 1150, stock: 10, image: "image/129.jpg" },
+        // قسم البقوليات والصوصات
+        { name: "كيلو عدس أصفر", category: "قسم البقوليات والصوصات", fridayPrice: 50, price: 60, stock: 30, image: "image/52.jpg" },
+        { name: "كيلو عدس بجبة", category: "قسم البقوليات والصوصات", fridayPrice: 55, price: 60, stock: 30, image: "image/53.jpg" },
+        { name: "كيلو فاصوليا", category: "قسم البقوليات والصوصات", fridayPrice: 55, price: 80, stock: 26, image: "image/54.jpg" },
+        { name: "كيلو لوبيا", category: "قسم البقوليات والصوصات", fridayPrice: 55, price: 80, stock: 26, image: "image/55.jpg" },
+        { name: "(1/8) بهارات مشكلة", category: "قسم البقوليات والصوصات", fridayPrice: 145, price: 200, stock: 16, image: "image/62.jpg" },
+        { name: "باكيت ملح بونو", category: "قسم البقوليات والصوصات", fridayPrice: 38, price: 48, stock: 22, image: "image/43.jpg" },
+        { name: "باكيت ملح بونو (650 جرام)", category: "قسم البقوليات والصوصات", fridayPrice: 43, price: 50, stock: 22, image: "image/43.jpg" },
+        { name: "عرض 2 برطمان صلصة 360 جم", category: "قسم البقوليات والصوصات", fridayPrice: 30, price: 40, stock: 28, image: "image/50.jpg" },
+        { name: "عرض 3 خل ثمار", category: "قسم البقوليات والصوصات", fridayPrice: 35, price: 45, stock: 20, image: "image/51.jpg" },
+        { name: "كيلو كاتشب حار", category: "قسم البقوليات والصوصات", fridayPrice: 40, price: 50, stock: 20, image: "image/56.jpg" },
+        { name: "كيلو كاتشب بارد", category: "قسم البقوليات والصوصات", fridayPrice: 40, price: 50, stock: 20, image: "image/57.jpg" },
+        { name: "كيلو خل مركز سايب", category: "قسم البقوليات والصوصات", fridayPrice: 30, price: 40, stock: 24, image: "image/60.jpg" },
+        { name: "كيلو مخلل بوليف", category: "قسم البقوليات والصوصات", fridayPrice: 20, price: 30, stock: 28, image: "image/45.jpg" },
+        { name: "2 كيس بقسماط ريتش باك 500 جرام", category: "قسم البقوليات والصوصات", fridayPrice: 50, price: 60, stock: 22, image: "image/113.jpg" },
+        { name: "عرض 2 كيلو سكر (1000 جرام)", category: "قسم البقوليات والصوصات", fridayPrice: 55, price: 60, stock: 40, image: "image/20.jpg" },
+        { name: "باكت سكر 10 كجم", category: "قسم البقوليات والصوصات", fridayPrice: 275, price: 300, stock: 16, image: "image/93.jpg" },
+        { name: "عرض 2 كيلو دقيق سايب", category: "قسم البقوليات والصوصات", fridayPrice: 35, price: 40, stock: 45, image: "image/21.jpg" },
+        { name: "كيلو طحينة سايب", category: "قسم البقوليات والصوصات", fridayPrice: 120, price: 160, stock: 18, image: "image/28.jpg" },
+        { name: "كيلو حلاوة سايبة ممتازة", category: "قسم البقوليات والصوصات", fridayPrice: 120, price: 140, stock: 18, image: "image/29.jpg" },
+        { name: "مربى البوادي كبير", category: "قسم البقوليات والصوصات", fridayPrice: 45, price: 55, stock: 32, image: "image/108.jpg" },
+        { name: "مربى البوادي صغير", category: "قسم البقوليات والصوصات", fridayPrice: 23, price: 30, stock: 34, image: "image/107.jpg" },
+        { name: "كيلو عسل أسمر", category: "قسم البقوليات والصوصات", fridayPrice: 44, price: 55, stock: 28, image: "image/42.jpg" },
+        { name: "شيكولاتة بلبن اسبريت 1 كجم", category: "قسم البقوليات والصوصات", fridayPrice: 245, price: 260, stock: 14, image: "image/82.jpg" },
+        { name: "بلح رطب سكري", category: "قسم البقوليات والصوصات", fridayPrice: 80, price: 90, stock: 26, image: "image/58.jpg" },
+        { name: "مربى فيتراك 1 كجم", category: "قسم البقوليات والصوصات", fridayPrice: 70, price: 80, stock: 24, image: "image/68.png" },
+        // قسم المشروبات
+        { name: "شاي ليبتون 250 جم", category: "قسم المشروبات", fridayPrice: 58, price: 65, stock: 28, image: "image/72.png" },
+        { name: "عرض 2 سحلب علاء (250 جرام)", category: "قسم المشروبات", fridayPrice: 50, price: 60, stock: 24, image: "image/47.jpg" },
+        { name: "سحلب علاء الدين (400 جرام)", category: "قسم المشروبات", fridayPrice: 45, price: 50, stock: 24, image: "image/61.jpg" },
+        // قسم المجمدات والأسماك
+        { name: "لانشون حلواني 250 جم", category: "قسم المجمدات والأسماك", fridayPrice: 70, price: 80, stock: 22, image: "image/79.png" },
+        { name: "لانشون اوريجينال 250 جم", category: "قسم المجمدات والأسماك", fridayPrice: 27, price: 35, stock: 24, image: "image/78.png" },
+        { name: "برجر المراعي عائلي", category: "قسم المجمدات والأسماك", fridayPrice: 115, price: 125, stock: 20, image: "image/37.jpg" },
+        { name: "برجر توابل شرقية (25 قطعة)", category: "قسم المجمدات والأسماك", fridayPrice: 125, price: 135, stock: 18, image: "image/39.jpg" },
+        { name: "طبق لحمة مفرومة 1/2 كجم", category: "قسم المجمدات والأسماك", fridayPrice: 145, price: 160, stock: 18, image: "image/84.png" },
+        { name: "طبق لحمة مفرومة 250 جم", category: "قسم المجمدات والأسماك", fridayPrice: 75, price: 85, stock: 22, image: "image/84.png" },
+        { name: "طبق كبدة 1/2 كجم", category: "قسم المجمدات والأسماك", fridayPrice: 95, price: 110, stock: 20, image: "image/87.png" },
+        { name: "طبق سجق 1/2 كجم", category: "قسم المجمدات والأسماك", fridayPrice: 95, price: 110, stock: 20, image: "image/88.png" },
+        { name: "طبق برجر 1/2 كجم", category: "قسم المجمدات والأسماك", fridayPrice: 95, price: 110, stock: 20, image: "image/90.png" },
+        { name: "طبق كفتة ارز 1/2 كجم", category: "قسم المجمدات والأسماك", fridayPrice: 95, price: 110, stock: 20, image: "image/86.png" },
+        { name: "طبق حواوشي 1/2 كجم", category: "قسم المجمدات والأسماك", fridayPrice: 85, price: 100, stock: 20, image: "image/89.png" },
+        { name: "طبق لحمة قطع 1/2 كجم", category: "قسم المجمدات والأسماك", fridayPrice: 155, price: 170, stock: 16, image: "image/87.png" },
+        { name: "وجبة كوكي كاملة مع كيس بطاطس", category: "قسم المجمدات والأسماك", fridayPrice: 230, price: 245, stock: 15, image: "image/136.jpg" },
+        { name: "جناح كوكي", category: "قسم المجمدات والأسماك", fridayPrice: 120, price: 130, stock: 18, image: "image/137.jpg" },
+        { name: "دبوس كوكي", category: "قسم المجمدات والأسماك", fridayPrice: 170, price: 180, stock: 16, image: "image/138.jpg" },
+        { name: "استربس مزايا كيلو", category: "قسم المجمدات والأسماك", fridayPrice: 185, price: 200, stock: 16, image: "image/144.jpg" },
+        { name: "كيلو رنجة درجة أولى", category: "قسم المجمدات والأسماك", fridayPrice: 115, price: 140, stock: 20, image: "image/40.jpg" },
+        { name: "عرض 4 علبة تونة", category: "قسم المجمدات والأسماك", fridayPrice: 95, price: 120, stock: 24, image: "image/41.jpg" },
+        // قسم المنظفات
+        { name: "أوكسي 2.5 كيلو أوتوماتيك", category: "قسم المنظفات", fridayPrice: 180, price: 190, stock: 20, image: "image/63.jpg" },
+        { name: "أوكسي 5 كيلو أوتوماتيك", category: "قسم المنظفات", fridayPrice: 305, price: 320, stock: 15, image: "image/64.jpg" },
+        { name: "أوكسي 9 كيلو أوتوماتيك", category: "قسم المنظفات", fridayPrice: 465, price: 480, stock: 12, image: "image/65.jpg" },
+        { name: "عرض 2 بخاخ معطر جو فلاور", category: "قسم المنظفات", fridayPrice: 85, price: 110, stock: 18, image: "image/66.jpg" },
+        { name: "عرض لفة صابون (4 صابونة 110 جرام)", category: "قسم المنظفات", fridayPrice: 50, price: 60, stock: 22, image: "image/139.jpg" }
       ];
 
       const products = productSeed.map((item, index) => ({
@@ -1801,7 +1859,7 @@
         productDetailModal.classList.remove("open");
       }
 
-      function confirmAndSendToWhatsApp() {
+      function confirmAndSendToWhatsApp(whatsappNumber) {
         const name = customerNameInput.value.trim();
         const phone = customerPhoneInput.value.trim();
         const address = customerAddressInput.value.trim();
@@ -1812,8 +1870,8 @@
         }
 
         const text = encodeURIComponent(composeMessage({ name, phone, address }));
-        const appUrl = `whatsapp://send?phone=${WHATSAPP_NUMBER}&text=${text}`;
-        const webUrl = `https://web.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${text}`;
+        const appUrl = `whatsapp://send?phone=${whatsappNumber}&text=${text}`;
+        const webUrl = `https://web.whatsapp.com/send?phone=${whatsappNumber}&text=${text}`;
         const isMobile = /Android|iPhone|iPad|iPod|Windows Phone/i.test(navigator.userAgent);
 
         notice.textContent = "اذا لم يتم فتح واتساب، استخدم زر نسخ نص الطلب.";
@@ -1852,7 +1910,8 @@
       document.getElementById("sendBtn").addEventListener("click", openCheckoutModal);
       document.getElementById("copyBtn").addEventListener("click", copyText);
       document.getElementById("cancelCheckoutBtn").addEventListener("click", closeCheckoutModal);
-      document.getElementById("confirmSendBtn").addEventListener("click", confirmAndSendToWhatsApp);
+      document.getElementById("confirmSendBtn1").addEventListener("click", () => confirmAndSendToWhatsApp(WHATSAPP_NUMBER_1));
+      document.getElementById("confirmSendBtn2").addEventListener("click", () => confirmAndSendToWhatsApp(WHATSAPP_NUMBER_2));
       document.getElementById("closeProductDetailBtn").addEventListener("click", closeProductDetails);
       productDetailModal.addEventListener("click", (event) => {
         if (event.target === productDetailModal) {
